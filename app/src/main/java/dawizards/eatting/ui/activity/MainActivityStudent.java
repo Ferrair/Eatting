@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
@@ -16,6 +17,7 @@ import butterknife.Bind;
 import dawizards.eatting.R;
 import dawizards.eatting.ui.base.BaseMain;
 import dawizards.eatting.ui.fragment.FoodFragment;
+import dawizards.eatting.util.IntentUtil;
 
 /**
  * MainActivity for Student.
@@ -62,6 +64,9 @@ public class MainActivityStudent extends BaseMain {
 
     @Override
     public boolean onDrawerMenuSelected(View view, int position, IDrawerItem drawerItem) {
+        switch (position) {
+
+        }
         return false;
     }
 
@@ -71,6 +76,7 @@ public class MainActivityStudent extends BaseMain {
         List<IDrawerItem> drawerItemList = new ArrayList<>();
         drawerItemList.add(new PrimaryDrawerItem().withName("我的预定").withIcon(ContextCompat.getDrawable(this, R.mipmap.ic_order)));
         drawerItemList.add(new PrimaryDrawerItem().withName("我的动态").withIcon(ContextCompat.getDrawable(this, R.mipmap.ic_msg)));
+        drawerItemList.add(new PrimaryDrawerItem().withName("退出登录").withIcon(FontAwesome.Icon.faw_gavel));
         return drawerItemList;
     }
 

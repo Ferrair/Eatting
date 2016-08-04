@@ -6,7 +6,9 @@ import android.content.Context;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import dawizards.eatting.bean.Comment;
 import dawizards.eatting.bean.Food;
 
 /**
@@ -38,14 +40,7 @@ public class FoodPresenter {
         aFood.delete(mLoadView);
     }
 
-    public void post() {
-        Food aFood = new Food();
-        aFood.name = "红烧代码";
-        aFood.price = 123f;
-        aFood.belongSchool = "电子科技大学";
-        aFood.belongCanteen = "紫荆餐厅";
-        aFood.imageUrl = "http://upload.jianshu.io/users/upload_avatars/1896125/325119cdd728.jpeg?imageMogr/thumbnail/90x90/quality/100";
-
-        aFood.save();
+    public void post(Food aFood, SaveListener<String> mLoadView) {
+        aFood.save(mLoadView);
     }
 }

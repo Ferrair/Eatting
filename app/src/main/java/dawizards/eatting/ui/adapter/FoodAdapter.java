@@ -28,10 +28,22 @@ import dawizards.eatting.util.ImageLoaderOptions;
 public class FoodAdapter extends BaseAdapter<FoodAdapter.FoodHolder, Food> {
 
     private User currentUser;
+    /*
+     * Edit Model.
+     */
+    private boolean edit = false;
 
     public FoodAdapter(Context mContext, List<Food> mListData) {
         super(mContext, mListData);
         currentUser = BmobUser.getCurrentUser(User.class);
+    }
+
+    public void enterEdit() {
+        edit = true;
+    }
+
+    public void exitEdit() {
+        edit = false;
     }
 
     public FoodAdapter(Context mContext) {
@@ -44,7 +56,8 @@ public class FoodAdapter extends BaseAdapter<FoodAdapter.FoodHolder, Food> {
         holder.mFoodName.setText("品名:" + itemData.name);
         holder.mFoodPrice.setText("价格:" + itemData.price);
         holder.mFoodLikeNum.setText("点赞人数：" + String.valueOf(itemData.getLikePeopleNum()));
-        holder.mFoodTime.setText(itemData.getCreatedAt().substring(0, 11));
+        if (itemData.getUpdatedAt() != null)
+            holder.mFoodTime.setText(itemData.getUpdatedAt().substring(0, 11));
         /*
          * Hide the schedule button when currentUser is Canteen.
          */
@@ -64,6 +77,12 @@ public class FoodAdapter extends BaseAdapter<FoodAdapter.FoodHolder, Food> {
                 holder.mFoodButton.setText(mContext.getString(R.string.food_schedule));
             }
         }
+
+        if (edit) {
+            holder.mButtonSelect.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     @Override

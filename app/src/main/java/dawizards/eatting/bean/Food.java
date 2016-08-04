@@ -50,6 +50,16 @@ public class Food extends BmobObject {
         return foodDB;
     }
 
+    public Food convert(FoodDB foodDB) {
+        this.setObjectId(foodDB.id);
+        this.name = foodDB.name;
+        this.price = foodDB.price;
+        this.belongSchool = foodDB.belongSchool;
+        this.belongCanteen = foodDB.belongCanteen;
+        this.imageUrl = foodDB.imageUrl;
+        return this;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other instanceof Food && ((Food) other).getObjectId().equals(getObjectId());
@@ -62,5 +72,10 @@ public class Food extends BmobObject {
 
     public void addLike(User aUser) {
         likePeople.add(aUser);
+    }
+
+    public void release() {
+        attendPeople.clear();
+        likePeople.clear();
     }
 }

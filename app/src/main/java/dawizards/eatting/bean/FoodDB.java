@@ -16,4 +16,5 @@ public class FoodDB {
     public String belongSchool;
     public String belongCanteen;
     public String imageUrl;
+
 }

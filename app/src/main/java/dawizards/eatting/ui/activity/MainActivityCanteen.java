@@ -16,6 +16,7 @@ import butterknife.Bind;
 import dawizards.eatting.R;
 import dawizards.eatting.ui.base.BaseMain;
 import dawizards.eatting.ui.fragment.FoodFragment;
+import dawizards.eatting.util.IntentUtil;
 
 /**
  * MainActivity for Canteen.
@@ -66,6 +67,17 @@ public class MainActivityCanteen extends BaseMain {
 
     @Override
     public boolean onDrawerMenuSelected(View view, int position, IDrawerItem drawerItem) {
+        switch (position) {
+            case 1:
+                IntentUtil.goToOtherActivity(this, PostFoodActivity.class);
+                break;
+            case 2:
+                IntentUtil.goToOtherActivity(this, OldFoodActivity.class);
+                break;
+            case 3:
+                IntentUtil.goToOtherActivity(this, DustbinFoodActivity.class);
+                break;
+        }
         return false;
     }
 

@@ -1,9 +1,7 @@
 package dawizards.eatting.ui.activity;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
@@ -33,11 +31,12 @@ import dawizards.eatting.mvp.presenter.FoodPresenter;
 import dawizards.eatting.ui.adapter.CommentAdapter;
 import dawizards.eatting.ui.adapter.event.LayoutState;
 import dawizards.eatting.ui.base.ScrollActivity;
-import dawizards.eatting.ui.customview.DividerItemDecoration;
 import dawizards.eatting.util.IntentUtil;
 
 /**
  * Created by WQH on 2016/8/3  19:12.
+ *
+ * ItemFoodActivity-> Show Student and Canteen the detail of this food,include comments about this fod.
  */
 public class ItemFoodActivity extends ScrollActivity {
 
@@ -79,7 +78,6 @@ public class ItemFoodActivity extends ScrollActivity {
         /*
          * Init RecyclerView and Adapter.
          */
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mAdapter.setLoadState(LayoutState.GONE);
         /*
          * Init Action Menu.
@@ -111,11 +109,10 @@ public class ItemFoodActivity extends ScrollActivity {
     }
 
     private void showContent(List<Comment> data) {
-        mAdapter.addAll(data);
+        mAdapter.update(data);
         mRecyclerView.setAdapter(mAdapter);
 
     }
-
 
     @OnClick(R.id.post_comment)
     public void postComment() {
@@ -158,6 +155,7 @@ public class ItemFoodActivity extends ScrollActivity {
 
         if (mFoodItem.isAttend(currentUser)) {
             Snackbar.make(mRootView, "您已经喜欢过这个菜品了", Snackbar.LENGTH_LONG).show();
+            return;
         }
         mFoodItem.addAttend(currentUser);
         mFoodPresenter.update(mFoodItem, new FoodUpdateListener());
@@ -177,6 +175,7 @@ public class ItemFoodActivity extends ScrollActivity {
 
         if (mFoodItem.isLike(currentUser)) {
             Snackbar.make(mRootView, "您已经赞过这个菜品了", Snackbar.LENGTH_LONG).show();
+            return;
         }
         mFoodItem.addLike(currentUser);
         mFoodPresenter.update(mFoodItem, new FoodUpdateListener());

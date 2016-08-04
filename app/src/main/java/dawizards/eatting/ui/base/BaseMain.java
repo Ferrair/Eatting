@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.bmob.v3.BmobUser;
 import dawizards.eatting.R;
+import dawizards.eatting.bean.User;
 import dawizards.eatting.ui.adapter.FragmentAdapter;
 import dawizards.eatting.ui.customview.DrawerDelegate;
 
@@ -115,8 +117,24 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        User currentUser = BmobUser.getCurrentUser(User.class);
+        if (currentUser != null) {
+            mDrawerDelegate.setName(currentUser.getUsername());
+            mDrawerDelegate.setEmail(currentUser.getType() == User.UserType.CANTEEN ? currentUser.getBelongCanteen() : "学生");
+        }
+    }
+
     protected void selectStateTitle(int which) {
         mToolbar.setTitle(mTitleList.get(which));
+        setSupportActionBar(mToolbar);
+    }
+
+
+    public void selectStateTitle(String newTitle) {
+        mToolbar.setTitle(newTitle);
         setSupportActionBar(mToolbar);
     }
 

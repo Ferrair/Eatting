@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--所有学校-->
+    <string-array name="school">
+        <item>电子科技大学</item>
+        <item>四川大学</item>
+        <item>西南交通大学</item>
+        <item>西南财经大学</item>
+        <item>西南民族大学</item>
+        <item>成都理工大学</item>
+        <item>西华大学</item>
+        <item>西南科技大学</item>
+        <item>西南交通大学</item>
+        <item>西南科技大学</item>
+        <item>四川农业大学</item>
+    </string-array>
+    <!--每个学校的餐厅-->
+    <string-array name="canteen">
+        <item>紫荆食堂-银桦食堂-芙蓉食堂-学子食堂-思源食堂-家园食堂-阳光食堂-风华食堂-万友食堂-桂苑食堂</item>
+    </string-array>
+
+    <string-array name="ingredients">
+        <item>牛肉`http://img0.imgtn.bdimg.com/it/u=926402589,3810638359&amp;fm=206&amp;gp=0.jpg</item>
+        <item>猪肉`https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3193517794,2778161848&amp;fm=116&amp;gp=0.jpg</item>
+        <item>青菜`https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2531882754,4063558040&amp;fm=116&amp;gp=0.jpg</item>
+        <item>香菇`http://pic67.nipic.com/file/20150519/9885883_134053231000_2.jpg</item>
+        <item>木耳`http://img1.imgtn.bdimg.com/it/u=841202960,998824217&amp;fm=206&amp;gp=0.jpg</item>
+        <item>萝卜`http://img3.imgtn.bdimg.com/it/u=1940576789,757964074&amp;fm=206&amp;gp=0.jpg</item>
+        <item>土豆`https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2182668971,1494619731&amp;fm=116&amp;gp=0.jpg</item>
+        <item>莲藕`http://www.ys137.com/uploads/allimg/121008/14_121008165141_1.jpg</item>
+    </string-array>
+</resources>

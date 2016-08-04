@@ -72,8 +72,6 @@ public class DrawerDelegate {
                 .withAccountHeader(header)
                 .build();
         drawer.addStickyFooterItem(setting);
-        // drawer.getDrawerLayout().setFitsSystemWindows(true);
-        // drawer.getSlider().setFitsSystemWindows(true);
     }
 
     public void setName(String name) {
@@ -99,12 +97,10 @@ public class DrawerDelegate {
         header.setHeaderBackground(new ImageHolder(resId));
     }
 
-    public boolean onDrawerMenuSelected(View view, int position, IDrawerItem drawerItem) {
-        return false;
-    }
-
-    public void setDrawerListener(DrawerListener drawerListener) {
-        this.drawerListener = drawerListener;
+    public void setEmail(String email)
+    {
+        profileDrawerItem.withEmail(email);
+        header.updateProfile(profileDrawerItem);
     }
 
     public void destroy() {
