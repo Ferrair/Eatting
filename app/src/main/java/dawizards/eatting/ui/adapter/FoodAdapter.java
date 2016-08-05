@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -20,6 +19,7 @@ import dawizards.eatting.R;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.User;
 import dawizards.eatting.ui.adapter.base.BaseAdapter;
+import dawizards.eatting.ui.customview.RatioImageView;
 import dawizards.eatting.util.ImageLoaderOptions;
 
 /**
@@ -80,6 +80,7 @@ public class FoodAdapter extends BaseAdapter<FoodAdapter.FoodHolder, Food> {
 
         if (edit) {
             holder.mButtonSelect.setVisibility(View.VISIBLE);
+            holder.mButtonSelect.setSelected(false);
         }
 
 
@@ -92,7 +93,7 @@ public class FoodAdapter extends BaseAdapter<FoodAdapter.FoodHolder, Food> {
 
     public static class FoodHolder extends BaseAdapter.BaseHolder {
         @Bind(R.id.food_image)
-        ImageView mFoodImage;
+        RatioImageView mFoodImage;
         @Bind(R.id.food_name)
         TextView mFoodName;
         @Bind(R.id.food_price)

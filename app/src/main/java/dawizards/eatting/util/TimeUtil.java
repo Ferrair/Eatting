@@ -1,5 +1,6 @@
 package dawizards.eatting.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -37,5 +38,10 @@ public class TimeUtil {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         return cal.getTime();
+    }
+
+    public static String today() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(new Date(System.currentTimeMillis()));
     }
 }

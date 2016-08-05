@@ -56,4 +56,12 @@ public abstract class ToolbarActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Change Toolbar title in Runtime.
+     */
+    public void setTitleDynamic(String title) {
+        mToolbar.setTitle(title);
+        setSupportActionBar(mToolbar);
+    }
 }

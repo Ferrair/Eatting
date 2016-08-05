@@ -3,6 +3,7 @@ package dawizards.eatting.util;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,13 +11,18 @@ import java.util.Collections;
 import java.util.List;
 
 import dawizards.eatting.R;
+import dawizards.eatting.app.Constants;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.FoodDB;
+import dawizards.eatting.bean.Ingredient;
+import dawizards.eatting.bean.User;
 
 /**
  * Created by WQH on 2016/5/9  19:42.
  */
 public class CollectionUtil {
+
+    private static final String TAG = "CollectionUtil";
 
     /**
      * Make Array data to List.(DO NOT use Arrays.asList)
@@ -58,6 +64,29 @@ public class CollectionUtil {
         }
         return mContext.getResources().getStringArray(R.array.canteen)[mSchoolIndex].split("-");
     }
+
+    //分离","把(name,url)变为 SimpleBean
+    public static List<Ingredient> generateIngredients(String[] dis, User currentUser) {
+        List<Ingredient> mList = new ArrayList<>();
+        Ingredient mIngredient;
+        for (String item : dis) {
+            mIngredient = new Ingredient();
+            String[] splitString = item.split("`");
+            mIngredient.name = splitString[0];
+            mIngredient.belongSchool = currentUser.getBelongSchool();
+            mIngredient.belongCanteen = currentUser.getBelongCanteen();
+
+            if (splitString.length > 1) {
+                mIngredient.imageUrl = splitString[1];
+                Log.i(TAG, splitString[1]);
+            } else
+                mIngredient.imageUrl = null;
+
+            mList.add(mIngredient);
+        }
+        return mList;
+    }
+
 
     public static List<Food> convert(List<FoodDB> rawData) {
         List<Food> foods = new ArrayList<>();

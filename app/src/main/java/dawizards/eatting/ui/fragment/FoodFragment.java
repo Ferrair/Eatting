@@ -18,6 +18,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
 import dawizards.eatting.R;
+import dawizards.eatting.app.Constants;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.User;
 import dawizards.eatting.mvp.presenter.FoodPresenter;
@@ -29,6 +30,7 @@ import dawizards.eatting.ui.base.BaseMain;
 import dawizards.eatting.ui.base.ScrollFragment;
 import dawizards.eatting.util.CollectionUtil;
 import dawizards.eatting.util.IntentUtil;
+import dawizards.eatting.util.SharePreferenceUtil;
 import dawizards.eatting.util.TimeUtil;
 import dawizards.eatting.util.ToastUtil;
 
@@ -53,6 +55,11 @@ public class FoodFragment extends ScrollFragment {
     private static LiteOrm mLiteOrm;
 
     @Override
+    public int layoutId() {
+        return R.layout.fragment_food;
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -62,6 +69,15 @@ public class FoodFragment extends ScrollFragment {
         mFoodPresenter = new FoodPresenter(mContext);
         mBmobDate = new BmobDate(TimeUtil.getTodayStart());
         mQuery = new BmobQuery<>();
+
+
+        initData();
+
+        setClickListener();
+    }
+
+    private void initData() {
+        // mQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
         mQuery.addWhereEqualTo("belongSchool", BmobUser.getCurrentUser(User.class).getBelongSchool());
         mQuery.addWhereGreaterThan("updatedAt", mBmobDate);
         if (mType == User.UserType.CANTEEN) {
@@ -73,8 +89,6 @@ public class FoodFragment extends ScrollFragment {
         }
 
         mFoodPresenter.queryBatch(mQuery, new FoodLoadListener());
-
-        setClickListener();
     }
 
     /**
@@ -102,7 +116,7 @@ public class FoodFragment extends ScrollFragment {
             mFab.setOnClickListener(view -> new AlertDialog.Builder(mContext).setItems(schools, (dialog, which) -> {
 
                 ToastUtil.showToast("已切换到" + schools[which]);
-                ((BaseMain) getActivity()).selectStateTitle(schools[which]);
+                ((BaseMain) getActivity()).setTitleDynamic(schools[which]);
                 mQuery = new BmobQuery<>();
                 mQuery.addWhereGreaterThan("updatedAt", mBmobDate);
                 mQuery.addWhereEqualTo("belongSchool", BmobUser.getCurrentUser(User.class).getBelongSchool());
@@ -134,15 +148,23 @@ public class FoodFragment extends ScrollFragment {
         }
     }
 
+    /**
+     * Log the attend num for current user,in order to select ingredient.
+     */
     private void scheduleFood(Food data) {
         User currentUser = BmobUser.getCurrentUser(User.class);
+        SharePreferenceUtil mShareNum = SharePreferenceUtil.newInstance(mContext, Constants.FOOD_ATTEND_NUM);
+        String key = TimeUtil.today();
+
         if (data.isAttend(currentUser)) {
             data.removeAttend(currentUser);
+            mShareNum.saveIntData(key, mShareNum.getIntData(key) + 1);
         } else {
             data.addAttend(currentUser);
+            mShareNum.saveIntData(key, mShareNum.getIntData(key) - 1);
         }
 
-        mAdapter.update(data);
+        mAdapter.fill(data);
         mFoodPresenter.update(data, new FoodUpdateListener(data));
 
     }
@@ -156,13 +178,10 @@ public class FoodFragment extends ScrollFragment {
         mFoodPresenter.delete(data, new FoodDeleteListener(data));
     }
 
-    @Override
-    public int layoutId() {
-        return R.layout.fragment_food;
-    }
 
     @Override
     public void onRefreshDelayed() {
+        // mQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
         mFoodPresenter.queryBatch(mQuery, new FoodLoadListener());
     }
 
@@ -175,7 +194,7 @@ public class FoodFragment extends ScrollFragment {
      * Show view by given data.
      */
     private void showContent(List<Food> data) {
-        mAdapter.update(data);
+        mAdapter.fill(data);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -200,7 +219,7 @@ public class FoodFragment extends ScrollFragment {
         @Override
         public void done(BmobException e) {
             if (e == null) {
-                mAdapter.update(toUpdate);
+                mAdapter.fill(toUpdate);
             }
         }
     }

@@ -48,7 +48,7 @@ public abstract class VerticalBehavior extends CoordinatorLayout.Behavior {
     }
 
     /**
-     * Called when a nested scroll in progress is about to update, before the target has
+     * Called when a nested scroll in progress is about to fill, before the target has
      * consumed any of the scrolled distance.
      *
      * @param child the child view of the CoordinatorLayout this Behavior is associated with

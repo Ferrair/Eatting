@@ -109,12 +109,12 @@ public class ItemFoodActivity extends ScrollActivity {
     }
 
     private void showContent(List<Comment> data) {
-        mAdapter.update(data);
+        mAdapter.fill(data);
         mRecyclerView.setAdapter(mAdapter);
 
     }
 
-    @OnClick(R.id.post_comment)
+    @OnClick(R.id.post)
     public void postComment() {
         if (currentUser == null) {
             new MaterialDialog.Builder(this)

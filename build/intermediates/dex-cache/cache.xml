@@ -33,7 +33,7 @@
         jar="E:\AndroidProject\Eatting-master\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="24.0.1"
-        sha1="c458b117741fa0dd3d26ddcf4f8421247b9bb4bd">
+        sha1="274184bb7d09f6e1c6adf3982cc65e2207772f5f">
         <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_0b4e847a998f53166f4f79724da96ebbb83e8f00\classes.dex" />
     </item>
     <item
@@ -82,7 +82,7 @@
         jar="E:\AndroidProject\Eatting-master\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="24.0.1"
-        sha1="8da33b1dac519cd50e8b1eadf396dd1ba40c6b51">
+        sha1="2a83d9f3fba3d4d07c636a6f58fed12afe709c12">
         <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_c201a27b1979609be5c6005e6ceb91a3df05fdb2\classes.dex" />
     </item>
     <item

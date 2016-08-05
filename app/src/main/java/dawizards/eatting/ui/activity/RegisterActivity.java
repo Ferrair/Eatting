@@ -61,16 +61,20 @@ public class RegisterActivity extends ToolbarActivity {
         mUser.setUsername(userName);
         mUser.setPassword(password);
         mUser.setType(User.UserType.STUDENT);
-        mUser.signUp(new SaveListener() {
+        mUser.signUp(new SaveListener<User>() {
             @Override
-            public void done(Object o, BmobException e) {
-                if (o == null) {
-                    IntentUtil.goToOtherActivity(RegisterActivity.this, MainActivityStudent.class);
+            public void done(User user, BmobException e) {
+                if (e == null) {
+                    IntentUtil.goToOtherActivity(RegisterActivity.this, SelectActivity.class, "type", SelectActivity.SELECT_SCHOOL);
                     mDialog.dismiss();
                     ToastUtil.showToast(getString(R.string.register_success));
                 } else {
+                    Log.e(TAG, "注册失败 -> " + e.getErrorCode() + e.getMessage());
                     mDialog.dismiss();
-                    Log.e(TAG, "注册失败 -> " + e.getMessage());
+                    if (e.getErrorCode() == 202) {
+                        ToastUtil.showToast("用户已存在");
+                    }
+
                 }
             }
         });

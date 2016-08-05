@@ -100,7 +100,7 @@ public class PostFoodActivity extends ToolbarActivity {
      * Select Image from album or camera.
      */
     @OnClick(R.id.food_image)
-    public void selecyImage() {
+    public void selectImage() {
         new AlertDialog.Builder(this).setItems(new String[]{"从相册选择", "照相",}, (dialog, which) -> {
             switch (which) {
                 case 0:

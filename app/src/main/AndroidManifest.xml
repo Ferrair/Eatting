@@ -84,12 +84,22 @@
             android:name=".ui.activity.PostFoodActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity
+            android:name=".ui.activity.PostMomentActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".ui.activity.OldFoodActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ui.activity.DustbinFoodActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".ui.activity.DustbinFoodActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".ui.activity.SelectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

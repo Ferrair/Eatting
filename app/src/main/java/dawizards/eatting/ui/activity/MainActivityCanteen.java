@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
@@ -13,9 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.bmob.v3.BmobUser;
 import dawizards.eatting.R;
 import dawizards.eatting.ui.base.BaseMain;
+import dawizards.eatting.ui.fragment.DataStatisticsFragment;
 import dawizards.eatting.ui.fragment.FoodFragment;
+import dawizards.eatting.ui.fragment.IngredientFragment;
+import dawizards.eatting.ui.fragment.MomentFragment;
 import dawizards.eatting.util.IntentUtil;
 
 /**
@@ -42,6 +47,9 @@ public class MainActivityCanteen extends BaseMain {
     public List<Fragment> onFragmentCreate() {
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new FoodFragment());
+        fragmentList.add(new DataStatisticsFragment());
+        fragmentList.add(new IngredientFragment());
+        fragmentList.add(new MomentFragment());
         return fragmentList;
     }
 
@@ -77,6 +85,10 @@ public class MainActivityCanteen extends BaseMain {
             case 3:
                 IntentUtil.goToOtherActivity(this, DustbinFoodActivity.class);
                 break;
+            case 4:
+                BmobUser.logOut();
+                IntentUtil.goToOtherActivity(this, LoginActivity.class);
+                break;
         }
         return false;
     }
@@ -88,6 +100,7 @@ public class MainActivityCanteen extends BaseMain {
         drawerItemList.add(new PrimaryDrawerItem().withName("发布菜品").withIcon(ContextCompat.getDrawable(this, R.mipmap.ic_new)));
         drawerItemList.add(new PrimaryDrawerItem().withName("昔日菜品").withIcon(ContextCompat.getDrawable(this, R.mipmap.ic_yest)));
         drawerItemList.add(new PrimaryDrawerItem().withName("下架菜品").withIcon(ContextCompat.getDrawable(this, R.mipmap.ic_moved)));
+        drawerItemList.add(new PrimaryDrawerItem().withName("退出登录").withIcon(FontAwesome.Icon.faw_gavel));
         return drawerItemList;
     }
 

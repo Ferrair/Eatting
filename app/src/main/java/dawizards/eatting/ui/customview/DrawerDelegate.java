@@ -48,10 +48,7 @@ public class DrawerDelegate {
                 .withHeaderBackground(R.mipmap.background)
                 .addProfiles(profileDrawerItem = new ProfileDrawerItem().withName("未登录"))
                 .withOnAccountHeaderListener((view, profile, current) -> {
-                    /*
-                     * User is logged => UserCenterActivity
-                     * User is not logged => LoginActivity
-                     */
+                    drawerListener.onAvatarClickListener();
                     return true;
                 })
                 .build();
@@ -97,8 +94,7 @@ public class DrawerDelegate {
         header.setHeaderBackground(new ImageHolder(resId));
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         profileDrawerItem.withEmail(email);
         header.updateProfile(profileDrawerItem);
     }
@@ -121,5 +117,8 @@ public class DrawerDelegate {
 
         @NonNull
         List<IDrawerItem> onDrawerMenuCreate();
+
+        void onAvatarClickListener();
+
     }
 }

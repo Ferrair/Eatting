@@ -13,24 +13,17 @@ public interface Adapter<DataType> {
     boolean isEmpty();
 
     /**
-     * Update the Adapter by the given newDataList.
+     * Fill the Adapter by the given newDataList.
      * Means clear the last data.
      */
-    void update(List<DataType> newDataList);
+    void fill(List<DataType> newDataList);
 
     /**
      * Update the Adapter by given newData.
-     * Only update the place where to update.
+     * Only fill the place where to fill.
      */
-    void update(DataType newData);
+    void fill(DataType newData);
 
-    /**
-     * Add newData to this Adapter.
-     * instead of #update,this method do NOT clear the last data.
-     * <p>
-     * One more thing:the Adapter MUST judge whether the Adapter holds data before.
-     */
-    void addAll(List<DataType> newData);
 
     void addOne(DataType data, int position);
 

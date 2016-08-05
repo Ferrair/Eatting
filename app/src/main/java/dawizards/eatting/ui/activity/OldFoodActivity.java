@@ -226,7 +226,7 @@ public class OldFoodActivity extends ScrollActivity {
      * Show view by given data.
      */
     private void showContent(List<Food> data) {
-        mAdapter.update(data);
+        mAdapter.fill(data);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -245,6 +245,7 @@ public class OldFoodActivity extends ScrollActivity {
 
         @Override
         public void onItemClick(View view, Food data) {
+            // Todo : Can unselect.
             RadioButton mButton = (RadioButton) view;
             if (!mButton.isChecked()) {
                 mButton.setChecked(false);

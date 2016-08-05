@@ -65,6 +65,7 @@ public class PostCommentActivity extends ToolbarActivity {
             public void done(String s, BmobException e) {
                 if (e == null) {
                     IntentUtil.goToOtherActivity(PostCommentActivity.this, ItemFoodActivity.class, "itemFood", mFoodItem);
+                    finish();
                 } else {
                     Snackbar.make(mRootView, "由于某种原因，评论失败了", Snackbar.LENGTH_LONG).show();
                 }
@@ -83,7 +84,7 @@ public class PostCommentActivity extends ToolbarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_post_comment, menu);
+        getMenuInflater().inflate(R.menu.menu_post, menu);
         return true;
     }
 
@@ -93,7 +94,7 @@ public class PostCommentActivity extends ToolbarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.post_comment:
+            case R.id.post:
                 postComment();
                 break;
             case android.R.id.home:

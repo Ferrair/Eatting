@@ -16,10 +16,11 @@
         android:text="选择"
         android:visibility="gone"/>
 
-    <ImageView
+    <dawizards.eatting.ui.customview.RatioImageView
         android:id="@+id/food_image"
         android:layout_width="90dp"
         android:layout_height="100dp"
+        android:adjustViewBounds="true"
         android:scaleType="fitXY"/>
 
     <LinearLayout

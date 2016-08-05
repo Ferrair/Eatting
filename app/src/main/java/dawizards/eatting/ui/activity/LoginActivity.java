@@ -46,10 +46,18 @@ public class LoginActivity extends ToolbarActivity {
     protected CircleImageView mHead;
 
     MaterialDialog mDialog;
+    private boolean canBack = false;
+
 
     @Override
     protected int layoutId() {
         return R.layout.activity_login;
+    }
+
+
+    @Override
+    protected boolean canBack() {
+        return false;
     }
 
     @Override
@@ -103,14 +111,15 @@ public class LoginActivity extends ToolbarActivity {
             public void done(User user, BmobException e) {
                 if (user != null) {
                     ToastUtil.showToast(getString(R.string.login_success));
-                    // if (user.getBelongSchool() == null)
-                    //     IntentUtil.goToOtherActivity(LoginActivity.this, SelectOptionsActivity.class, Constants.SELECT_TYPE, Constants.SELECT_SCHOOL);
+                    if (user.getBelongSchool() == null) {
+                        IntentUtil.goToOtherActivity(LoginActivity.this, SelectActivity.class, "type", SelectActivity.SELECT_SCHOOL);
+                    }
+
                     if (user.getType() == User.UserType.STUDENT)
                         IntentUtil.goToOtherActivity(LoginActivity.this, MainActivityStudent.class);
                     else if (user.getType() == User.UserType.CANTEEN) {
                         IntentUtil.goToOtherActivity(LoginActivity.this, MainActivityCanteen.class);
                     }
-                    IntentUtil.goToOtherActivity(LoginActivity.this, MainActivityStudent.class);
                     mDialog.dismiss();
                     finish();
                 } else {

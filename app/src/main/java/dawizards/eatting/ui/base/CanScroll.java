@@ -17,7 +17,7 @@ public interface CanScroll extends SwipeRefreshLayout.OnRefreshListener, OnBotto
     void onRefreshDelayed();
 
     /**
-     * Whether can user update when scroll-down at top.
+     * Whether can user fill when scroll-down at top.
      * The default is true.If this method return false,onRefreshDelayed() will make no sense.
      */
     boolean canRefresh();

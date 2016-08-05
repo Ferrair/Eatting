@@ -184,7 +184,7 @@ public abstract class BaseAdapter<Holder extends BaseAdapter.BaseHolder, DataTyp
 
 
     @Override
-    public void update(List<DataType> newDataList) {
+    public void fill(List<DataType> newDataList) {
         if (this.mListData == null) {
             this.mListData = newDataList;
             return;
@@ -195,23 +195,13 @@ public abstract class BaseAdapter<Holder extends BaseAdapter.BaseHolder, DataTyp
     }
 
     @Override
-    public void update(DataType newData) {
+    public void fill(DataType newData) {
         int index = mListData.indexOf(newData);
         mListData.remove(index);
         mListData.add(index, newData);
         notifyItemChanged(index);
     }
 
-    @Override
-    public void addAll(List<DataType> newData) {
-        if (this.mListData == null) {
-            this.mListData = newData;
-            return;
-        }
-        int prePosition = mListData.size();
-        CollectionUtil.addAllDistinct(mListData, newData);
-        notifyItemRangeChanged(prePosition, mListData.size() - 1);
-    }
 
     @Override
     public void addAtTail(DataType data) {

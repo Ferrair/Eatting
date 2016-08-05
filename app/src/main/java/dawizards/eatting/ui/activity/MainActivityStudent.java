@@ -14,9 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.bmob.v3.BmobUser;
 import dawizards.eatting.R;
 import dawizards.eatting.ui.base.BaseMain;
 import dawizards.eatting.ui.fragment.FoodFragment;
+import dawizards.eatting.ui.fragment.IngredientFragment;
+import dawizards.eatting.ui.fragment.MomentFragment;
 import dawizards.eatting.util.IntentUtil;
 
 /**
@@ -41,6 +44,8 @@ public class MainActivityStudent extends BaseMain {
     public List<Fragment> onFragmentCreate() {
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new FoodFragment());
+        fragmentList.add(new IngredientFragment());
+        fragmentList.add(new MomentFragment());
         return fragmentList;
     }
 
@@ -65,7 +70,13 @@ public class MainActivityStudent extends BaseMain {
     @Override
     public boolean onDrawerMenuSelected(View view, int position, IDrawerItem drawerItem) {
         switch (position) {
-
+            case 3:
+                IntentUtil.goToOtherActivity(this, PostMomentActivity.class);
+                break;
+            case 4:
+                BmobUser.logOut();
+                IntentUtil.goToOtherActivity(this, LoginActivity.class);
+                break;
         }
         return false;
     }
@@ -76,6 +87,7 @@ public class MainActivityStudent extends BaseMain {
         List<IDrawerItem> drawerItemList = new ArrayList<>();
         drawerItemList.add(new PrimaryDrawerItem().withName("我的预定").withIcon(ContextCompat.getDrawable(this, R.mipmap.ic_order)));
         drawerItemList.add(new PrimaryDrawerItem().withName("我的动态").withIcon(ContextCompat.getDrawable(this, R.mipmap.ic_msg)));
+        drawerItemList.add(new PrimaryDrawerItem().withName("发布动态").withIcon(ContextCompat.getDrawable(this, R.mipmap.ic_msg)));
         drawerItemList.add(new PrimaryDrawerItem().withName("退出登录").withIcon(FontAwesome.Icon.faw_gavel));
         return drawerItemList;
     }

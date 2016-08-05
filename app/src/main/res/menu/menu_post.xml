@@ -3,7 +3,7 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".ui.activity.PostCommentActivity">
     <item
-        android:id="@+id/post_comment"
+        android:id="@+id/post"
         android:orderInCategory="1"
         android:title="发表"
         app:showAsAction="always"/>

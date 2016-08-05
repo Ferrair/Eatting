@@ -1,22 +1,37 @@
 package dawizards.eatting.ui.base;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UploadFileListener;
 import dawizards.eatting.R;
+import dawizards.eatting.app.Constants;
+import dawizards.eatting.app.PermissionManager;
 import dawizards.eatting.bean.User;
 import dawizards.eatting.ui.adapter.FragmentAdapter;
 import dawizards.eatting.ui.customview.DrawerDelegate;
+import dawizards.eatting.util.ToastUtil;
 
 /**
  * Created by WQH on 2015/11/27 19:53.
@@ -41,6 +56,12 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
 
     private List<String> mTitleList = new ArrayList<>();
 
+
+    /*
+     * User Avatar Local Path.
+     */
+    String mFilePath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +70,9 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
         initDrawer();
     }
 
+    /*
+     * Init the Activity.
+     */
     private void initComponents() {
         mContentList = onFragmentCreate();
         mButtonList = onButtonCreate();
@@ -66,11 +90,16 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
         selectState(0);
     }
 
+    // Todo : 右上角按钮 Drawer出不来
     private void initDrawer() {
         mDrawerDelegate = new DrawerDelegate(this, mToolbar, this);
         mDrawerDelegate.init();
     }
 
+    /*
+     * Create Menu and Set Listener.
+     *
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -87,8 +116,94 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
         return true;
     }
 
-    /**
-     * Dispatch click action on <code>Toolbar</code> on each ScrollFragment.
+    /*
+     * Upload user avatar.
+     */
+    @Override
+    public void onAvatarClickListener() {
+        new AlertDialog.Builder(this).setItems(new String[]{"从相册选择", "照相",}, (dialog, which) -> {
+            switch (which) {
+                case 0:
+                    if (PermissionManager.grantPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        album();
+                    }
+                    break;
+                case 1:
+                    if (PermissionManager.grantPermission(this, Manifest.permission.CAMERA)) {
+                        camera();
+                    }
+                    break;
+            }
+        }).create().show();
+    }
+
+    public void camera() {
+        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File dir = new File(Constants.PICTURE_PATH);
+        if (!dir.exists())
+            dir.mkdir();
+        File file = new File(dir, System.currentTimeMillis() + ".jpg");
+        mFilePath = file.getAbsolutePath();
+        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        startActivityForResult(openCameraIntent, Constants.REQUEST_CAMERA);
+    }
+
+    public void album() {
+        Intent intent = new Intent(Intent.ACTION_PICK, null);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent, Constants.REQUEST_GALLEY);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Constants.REQUEST_CAMERA:
+                    showImage(mFilePath);
+                    break;
+                case Constants.REQUEST_GALLEY:
+                    if (data == null) return;
+                    if (data.getData() == null) return;
+                    Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
+                    if (cursor != null) {
+                        cursor.moveToFirst();
+                        showImage(cursor.getString(cursor.getColumnIndex("_data")));
+                        cursor.close();
+                    } else
+                        Log.e("PostFoodActivity ", "onActivityResult ()未查询到cursor");
+
+                    break;
+            }
+        }
+    }
+
+    private void showImage(String localPath) {
+        if (localPath == null || localPath.equals("null")) {
+            ToastUtil.showToast(getString(R.string.image_error));
+            return;
+        }
+        mFilePath = localPath;
+
+        BmobFile bmobFile = new BmobFile(new File(mFilePath));
+        bmobFile.uploadblock(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    User currentUser = BmobUser.getCurrentUser(User.class);
+                    currentUser.setUserImage(bmobFile.getFileUrl());
+                    currentUser.save();
+                    mDrawerDelegate.setAvatar(bmobFile.getFileUrl());
+                } else {
+                    Log.i(TAG, "上传文件失败：" + e.getMessage());
+                }
+            }
+        });
+    }
+
+
+    /*
+     * Title.
      */
     @Override
     protected void onToolbarClick() {
@@ -101,12 +216,6 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
         return false;
     }
 
-    @Override
-    protected void onDestroy() {
-        mDrawerDelegate.destroy();
-        mDrawerDelegate = null;
-        super.onDestroy();
-    }
 
     protected void selectStateButton(int which) {
         for (int i = 0; i < mButtonList.size(); i++) {
@@ -117,26 +226,6 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        User currentUser = BmobUser.getCurrentUser(User.class);
-        if (currentUser != null) {
-            mDrawerDelegate.setName(currentUser.getUsername());
-            mDrawerDelegate.setEmail(currentUser.getType() == User.UserType.CANTEEN ? currentUser.getBelongCanteen() : "学生");
-        }
-    }
-
-    protected void selectStateTitle(int which) {
-        mToolbar.setTitle(mTitleList.get(which));
-        setSupportActionBar(mToolbar);
-    }
-
-
-    public void selectStateTitle(String newTitle) {
-        mToolbar.setTitle(newTitle);
-        setSupportActionBar(mToolbar);
-    }
 
     /**
      * Call when user scroll the ViewPager or click the Button.
@@ -155,13 +244,33 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
         /*
          * Change Title.
          */
-        selectStateTitle(which);
-        /*
-         * Change Menu.
-         */
-        // mToolbar.setOnMenuItemClickListener(this);
-        // 使得原来的菜单无效
-        // invalidateOptionsMenu();
+        setTitleDynamic(mTitleList.get(which));
+    }
+
+    /*
+     * System Method.
+     */
+    @Override
+    protected void onDestroy() {
+        mDrawerDelegate.destroy();
+        mDrawerDelegate = null;
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        User currentUser = BmobUser.getCurrentUser(User.class);
+        if (currentUser != null) {
+            mDrawerDelegate.setName(currentUser.getUsername());
+            mDrawerDelegate.setEmail(currentUser.getType() == User.UserType.CANTEEN ? currentUser.getBelongCanteen() : "学生");
+            if (currentUser.getUserImage() == null) {
+                mDrawerDelegate.setAvatar(R.mipmap.head);
+            } else {
+                mDrawerDelegate.setAvatar(currentUser.getUserImage());
+            }
+
+        }
     }
 
 

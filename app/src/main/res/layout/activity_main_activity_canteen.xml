@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-This layout can hide the Toolbar(not including TabLayout) when the user scroll down ViewPager
-And the Fragments on TabLayout will be changed when the user scroll left or right
--->
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.activity.MainActivityCanteen">
 
     <android.support.design.widget.AppBarLayout
@@ -21,21 +18,21 @@ And the Fragments on TabLayout will be changed when the user scroll left or righ
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:minHeight="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:layout_weight="1"/>
+
 
         <LinearLayout
             android:id="@+id/mMainBottom"

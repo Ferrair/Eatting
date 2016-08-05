@@ -11,17 +11,14 @@ import android.widget.RadioButton;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.annimon.stream.Stream;
 import com.litesuits.orm.LiteOrm;
-import com.litesuits.orm.log.OrmLog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import cn.bmob.v3.BmobQuery;
 import dawizards.eatting.R;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.FoodDB;
-import dawizards.eatting.mvp.presenter.FoodPresenter;
 import dawizards.eatting.ui.adapter.FoodAdapter;
 import dawizards.eatting.ui.adapter.event.LayoutState;
 import dawizards.eatting.ui.base.ScrollActivity;
@@ -52,6 +49,7 @@ public class DustbinFoodActivity extends ScrollActivity {
         mAdapter.setOnItemClickListener(R.id.food_select, new SelectListener());
 
         /*
+         * Todo
          * Load data from custom database.
          */
         if (mLiteOrm == null) {
@@ -169,7 +167,7 @@ public class DustbinFoodActivity extends ScrollActivity {
      * Show view by given data.
      */
     private void showContent(List<Food> data) {
-        mAdapter.update(data);
+        mAdapter.fill(data);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -180,7 +178,7 @@ public class DustbinFoodActivity extends ScrollActivity {
 
 
     private class SelectListener implements dawizards.eatting.ui.adapter.event.OnItemClickListener<Food> {
-
+        // Todo : Can unselect.
         @Override
         public void onItemClick(View view, Food data) {
             RadioButton mButton = (RadioButton) view;

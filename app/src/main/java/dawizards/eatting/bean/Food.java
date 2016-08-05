@@ -19,6 +19,10 @@ public class Food extends BmobObject {
     List<User> attendPeople = new ArrayList<>(); //预定菜品的人数
     List<User> likePeople = new ArrayList<>();   //点赞人数
 
+
+    /*
+     * Operate on attendPeople and likePeople.
+     */
     public void removeAttend(User aUser) {
         attendPeople.remove(aUser);
     }
@@ -31,12 +35,30 @@ public class Food extends BmobObject {
         return likePeople.size();
     }
 
+    public int getAttendPeopleNum() {
+        return attendPeople.size();
+    }
+
     public boolean isAttend(User aUser) {
         return attendPeople.contains(aUser);
     }
 
-    /**
-     * Convert the Food.class to FoodDB.class.
+
+    public boolean isLike(User aUser) {
+        return likePeople.contains(aUser);
+    }
+
+    public void addLike(User aUser) {
+        likePeople.add(aUser);
+    }
+
+    public void release() {
+        attendPeople.clear();
+        likePeople.clear();
+    }
+
+    /*
+     * Convert the class between Food.class and FoodDB.class.
      * Because of Food is extend BmobObject that can not assign the primary key in Database.
      */
     public FoodDB convert() {
@@ -60,22 +82,10 @@ public class Food extends BmobObject {
         return this;
     }
 
+
     @Override
     public boolean equals(Object other) {
         return other instanceof Food && ((Food) other).getObjectId().equals(getObjectId());
     }
 
-
-    public boolean isLike(User aUser) {
-        return likePeople.contains(aUser);
-    }
-
-    public void addLike(User aUser) {
-        likePeople.add(aUser);
-    }
-
-    public void release() {
-        attendPeople.clear();
-        likePeople.clear();
-    }
 }
