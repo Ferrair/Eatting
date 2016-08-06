@@ -16,13 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 import dawizards.eatting.R;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.FoodDB;
+import dawizards.eatting.manager.RxBus;
 import dawizards.eatting.ui.adapter.FoodAdapter;
 import dawizards.eatting.ui.adapter.event.LayoutState;
 import dawizards.eatting.ui.base.ScrollActivity;
 import dawizards.eatting.util.CollectionUtil;
+import dawizards.eatting.util.IntentUtil;
 
 public class DustbinFoodActivity extends ScrollActivity {
     @Bind(R.id.rootView)
@@ -47,9 +51,12 @@ public class DustbinFoodActivity extends ScrollActivity {
         mAdapter = new FoodAdapter(this);
         mAdapter.setLoadState(LayoutState.GONE);
         mAdapter.setOnItemClickListener(R.id.food_select, new SelectListener());
+        mAdapter.setOnItemClickListener(R.id.food_layout, (view, data) -> {
+            if (!edit)
+                IntentUtil.goToOtherActivity(DustbinFoodActivity.this, ItemFoodActivity.class, "itemFood", data);
+        });
 
         /*
-         * Todo
          * Load data from custom database.
          */
         if (mLiteOrm == null) {
@@ -57,8 +64,13 @@ public class DustbinFoodActivity extends ScrollActivity {
             mLiteOrm.setDebugged(true);
         }
         List<FoodDB> list = mLiteOrm.query(FoodDB.class);
-        Log.i(TAG,list.size() + " ");
+        Log.i(TAG, list.size() + " ");
         showContent(CollectionUtil.convert(list));
+    }
+
+    @Override
+    public boolean canRefresh() {
+        return false;
     }
 
     @Override
@@ -106,7 +118,6 @@ public class DustbinFoodActivity extends ScrollActivity {
         return true;
     }
 
-    //Todo : not working.
     private void upload() {
         if (mSelected.size() == 0) {
             Snackbar.make(mRootView, "您好像没有进行选择哦", Snackbar.LENGTH_SHORT);
@@ -116,13 +127,20 @@ public class DustbinFoodActivity extends ScrollActivity {
                 .content("您选择了" + mSelected.size() + "进行更新?")
                 .positiveText("确定")
                 .negativeText("取消")
-                .onPositive((dialog, which) -> {
-                    Stream.of(mSelected).forEach(item -> {
-                        item.release();
-                        item.save();
+                .onPositive((dialog, which) -> Stream.of(mSelected).forEach(item -> {
+                    item.release();
+                    item.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e != null) {
+                                Log.e(TAG, e.getMessage());
+                            } else {
+                                Log.i(TAG, "Success Upload");
+                                RxBus.getDefault().post(item);
+                            }
+                        }
                     });
-                    finish();
-                })
+                }))
                 .show();
     }
 
@@ -178,7 +196,7 @@ public class DustbinFoodActivity extends ScrollActivity {
 
 
     private class SelectListener implements dawizards.eatting.ui.adapter.event.OnItemClickListener<Food> {
-        // Todo : Can unselect.
+        // Todo : Cannot cancle select.
         @Override
         public void onItemClick(View view, Food data) {
             RadioButton mButton = (RadioButton) view;

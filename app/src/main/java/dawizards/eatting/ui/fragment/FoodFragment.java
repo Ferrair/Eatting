@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
 import com.github.clans.fab.FloatingActionButton;
 import com.litesuits.orm.LiteOrm;
 
@@ -21,25 +23,25 @@ import dawizards.eatting.R;
 import dawizards.eatting.app.Constants;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.manager.RxBus;
 import dawizards.eatting.mvp.presenter.FoodPresenter;
 import dawizards.eatting.ui.activity.ItemFoodActivity;
 import dawizards.eatting.ui.activity.PostFoodActivity;
 import dawizards.eatting.ui.adapter.FoodAdapter;
-import dawizards.eatting.ui.adapter.event.LayoutState;
 import dawizards.eatting.ui.base.BaseMain;
 import dawizards.eatting.ui.base.ScrollFragment;
 import dawizards.eatting.util.CollectionUtil;
 import dawizards.eatting.util.IntentUtil;
-import dawizards.eatting.util.SharePreferenceUtil;
+import dawizards.eatting.manager.SharePreferenceManager;
 import dawizards.eatting.util.TimeUtil;
 import dawizards.eatting.util.ToastUtil;
+import rx.Subscription;
 
 /**
  * Created by WQH on 2015/11/19 11:21.
  *
  * Show Food.Student can select which food they like.
  *
- * Todo : Observable.
  */
 public class FoodFragment extends ScrollFragment {
     private static final String TAG = "FoodFragment";
@@ -53,6 +55,8 @@ public class FoodFragment extends ScrollFragment {
     BmobQuery<Food> mQuery;
     BmobDate mBmobDate;
     private static LiteOrm mLiteOrm;
+    List<Food> mListDara;
+    Subscription mBus;
 
     @Override
     public int layoutId() {
@@ -63,10 +67,14 @@ public class FoodFragment extends ScrollFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mBus = RxBus.getDefault().toObservable(Food.class).subscribe(o -> {
+            Log.i(TAG, "RxBus(Food) 收到了一条消息");
+            mAdapter.addAtHead((Food) o);
+        });
+
         mType = BmobUser.getCurrentUser(User.class).getType();
         mAdapter = new FoodAdapter(mContext);
-        mAdapter.setLoadState(LayoutState.GONE);
-        mFoodPresenter = new FoodPresenter(mContext);
+        mFoodPresenter = new FoodPresenter();
         mBmobDate = new BmobDate(TimeUtil.getTodayStart());
         mQuery = new BmobQuery<>();
 
@@ -153,15 +161,15 @@ public class FoodFragment extends ScrollFragment {
      */
     private void scheduleFood(Food data) {
         User currentUser = BmobUser.getCurrentUser(User.class);
-        SharePreferenceUtil mShareNum = SharePreferenceUtil.newInstance(mContext, Constants.FOOD_ATTEND_NUM);
+        SharePreferenceManager mShareNum = SharePreferenceManager.newInstance(mContext, Constants.FOOD_ATTEND_NUM);
         String key = TimeUtil.today();
 
         if (data.isAttend(currentUser)) {
             data.removeAttend(currentUser);
-            mShareNum.saveIntData(key, mShareNum.getIntData(key) + 1);
+            mShareNum.saveIntData(key, mShareNum.getIntData(key) - 1);
         } else {
             data.addAttend(currentUser);
-            mShareNum.saveIntData(key, mShareNum.getIntData(key) - 1);
+            mShareNum.saveIntData(key, mShareNum.getIntData(key) + 1);
         }
 
         mAdapter.fill(data);
@@ -194,6 +202,7 @@ public class FoodFragment extends ScrollFragment {
      * Show view by given data.
      */
     private void showContent(List<Food> data) {
+        mListDara = data;
         mAdapter.fill(data);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -208,6 +217,15 @@ public class FoodFragment extends ScrollFragment {
             }
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (!mBus.isUnsubscribed()) {
+            mBus.unsubscribe();
+        }
+    }
+
 
     private class FoodUpdateListener extends UpdateListener {
         Food toUpdate;

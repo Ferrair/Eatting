@@ -66,4 +66,8 @@
     <string name="footer_behavior">dawizards.eatting.ui.customview.behavior.FooterBehavior</string>
     <string name="scale_behavior">dawizards.eatting.ui.customview.behavior.ScaleBehavior</string>
     <string name="update_now">正在上传</string>
+
+    <string name="title_activity_navagation">NavagationActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

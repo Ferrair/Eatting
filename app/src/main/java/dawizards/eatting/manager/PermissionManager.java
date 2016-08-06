@@ -1,4 +1,4 @@
-package dawizards.eatting.app;
+package dawizards.eatting.manager;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -10,29 +10,35 @@ import dawizards.eatting.util.ToastUtil;
 
 /**
  * Created by WQH on 2016/8/4  17:36.
+ *
+ * In Android M ,dynastic grant permission.
  */
 public class PermissionManager {
     /**
-     * Request Permission.
+     * Query if user grant this permission.
      *
-     * @return true -> user grant this permission.
      *
      * SDCard : Manifest.permission.WRITE_EXTERNAL_STORAGE
      * Camera : Manifest.permission.CAMERA
      */
-    public static boolean grantPermission(Activity mActivity, String permission) {
+    public static boolean hasPermission(Activity mActivity, String permission) {
         if (Build.VERSION.SDK_INT < 23)
             return true;
         if (ContextCompat.checkSelfPermission(mActivity, permission) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity, permission)) {
-                ToastUtil.showToast("没有权限");
-                return false;
-            } else {
-                ActivityCompat.requestPermissions(mActivity, new String[]{permission}, 10);
-                return true;
-            }
+            return false;
         }
         return true;
+    }
+
+    /**
+     * Request Permission.
+     */
+    public static void requestPermission(Activity mActivity, String permission) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity, permission)) {
+            ToastUtil.showToast("没有权限");
+        } else {
+            ActivityCompat.requestPermissions(mActivity, new String[]{permission}, 10);
+        }
     }
 }
 

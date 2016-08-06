@@ -3,7 +3,7 @@
               android:id="@+id/food_layout"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="?attr/selectableItemBackground"
+              android:background="@color/background"
               android:clickable="true"
               android:orientation="horizontal"
               android:padding="5dp">
@@ -88,6 +88,7 @@
             <Button
                 android:id="@+id/food_schedule"
                 android:layout_width="0dp"
+                android:background="@color/background"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"

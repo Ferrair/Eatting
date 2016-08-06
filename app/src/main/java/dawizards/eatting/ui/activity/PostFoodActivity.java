@@ -3,10 +3,12 @@ package dawizards.eatting.ui.activity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,9 +31,10 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import dawizards.eatting.R;
 import dawizards.eatting.app.Constants;
-import dawizards.eatting.app.PermissionManager;
+import dawizards.eatting.manager.PermissionManager;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.manager.RxBus;
 import dawizards.eatting.mvp.presenter.FoodPresenter;
 import dawizards.eatting.ui.base.ToolbarActivity;
 import dawizards.eatting.util.ImageLoaderOptions;
@@ -63,7 +66,7 @@ public class PostFoodActivity extends ToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDialog = new MaterialDialog.Builder(this).content(R.string.update_now).progress(true, 0).build();
-        mFoodPresenter = new FoodPresenter(this);
+        mFoodPresenter = new FoodPresenter();
 
         Intent mIntent = getIntent();
         //修改Food然后进行发送
@@ -104,17 +107,54 @@ public class PostFoodActivity extends ToolbarActivity {
         new AlertDialog.Builder(this).setItems(new String[]{"从相册选择", "照相",}, (dialog, which) -> {
             switch (which) {
                 case 0:
-                    if (PermissionManager.grantPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    if (PermissionManager.hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         album();
+                    } else {
+                        PermissionManager.requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                     }
                     break;
                 case 1:
-                    if (PermissionManager.grantPermission(this, Manifest.permission.CAMERA)) {
+                    if (PermissionManager.hasPermission(this, Manifest.permission.CAMERA)) {
                         camera();
+                    } else {
+                        PermissionManager.requestPermission(this, Manifest.permission.CAMERA);
                     }
                     break;
             }
         }).create().show();
+    }
+
+
+    /**
+     * Callback for the result from requesting permissions. This method is invoked for every call on requestPermissions(android.app.Activity, String[], int).
+     *
+     * Note: It is possible that the permissions request interaction with the user is interrupted.
+     * In this case you will receive empty permissions and results arrays which should be treated as a cancellation.
+     *
+     * @param requestCode  int: The request code passed in requestPermissions(android.app.Activity, String[], int)
+     * @param permissions  String: The requested permissions. Never null.
+     * @param grantResults int: The grant results for the corresponding permissions which is either PERMISSION_GRANTED or PERMISSION_DENIED. Never null.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            for (String permission : permissions) {
+                if (permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    for (int grantResult : grantResults) {
+                        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                            album();
+                        }
+                    }
+                }
+                if (permission.equals(Manifest.permission.CAMERA)) {
+                    for (int grantResult : grantResults) {
+                        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                            camera();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void camera() {
@@ -229,6 +269,7 @@ public class PostFoodActivity extends ToolbarActivity {
         @Override
         public void done(String var, BmobException e) {
             if (e == null) {
+                RxBus.getDefault().post(mFood);
                 mDialog.dismiss();
                 Log.i(TAG, "上传文件成功:" + url);
                 finish();

@@ -1,4 +1,4 @@
-package dawizards.eatting.util;
+package dawizards.eatting.manager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,24 +13,24 @@ import java.util.Set;
  * 3.存储boolean类型
  * <p>
  * 使用方式:
- * SharePreferenceUtil s = SharePreferenceUtil.newInstance(Context context,String tableName);
+ * SharePreferenceManager s = SharePreferenceManager.newInstance(Context context,String tableName);
  * 存储数据时:  s.saveBooleanData(String itemName,boolean status);
  * 取出数据时:  s.getBooleanData(String itemName);
  */
-public class SharePreferenceUtil {
+public class SharePreferenceManager {
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
 
     public final static String STRING_NULL = "null";
 
-    private SharePreferenceUtil(Context context, String tableName) {
+    private SharePreferenceManager(Context context, String tableName) {
         mSharedPreferences = context.getSharedPreferences(tableName, Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
     }
 
 
-    public static SharePreferenceUtil newInstance(Context context, String tableName) {
-        return new SharePreferenceUtil(context, tableName);
+    public static SharePreferenceManager newInstance(Context context, String tableName) {
+        return new SharePreferenceManager(context, tableName);
     }
 
     public void saveBooleanData(String itemName, boolean status) {

@@ -1,10 +1,15 @@
 package dawizards.eatting.ui.customview;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -15,10 +20,15 @@ import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
 import dawizards.eatting.R;
+import dawizards.eatting.ui.activity.SettingActivity;
+import dawizards.eatting.util.IntentUtil;
 
 
 /**
@@ -61,7 +71,7 @@ public class DrawerDelegate {
                 .withDrawerItems(drawerListener.onDrawerMenuCreate())
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     if (drawerItem == setting) {
-                        //IntentUtil.goToOtherActivity(activity, SettingActivity.class);
+                        IntentUtil.goToOtherActivity(activity, SettingActivity.class);
                         return true;
                     }
                     return drawerListener.onDrawerMenuSelected(view, position, drawerItem);
@@ -69,6 +79,18 @@ public class DrawerDelegate {
                 .withAccountHeader(header)
                 .build();
         drawer.addStickyFooterItem(setting);
+
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+            @Override
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                ImageLoader.getInstance().displayImage(uri.toString(), imageView);
+            }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                ImageLoader.getInstance().cancelDisplayTask(imageView);
+            }
+        });
     }
 
     public void setName(String name) {

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -11,7 +12,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -37,16 +37,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class LoginActivity extends ToolbarActivity {
     // UI references.
     @Bind(R.id.userName)
-    protected EditText mUserNameView;
+    protected TextInputEditText mUserNameView;
 
     @Bind(R.id.userPassword)
-    protected EditText mPasswordView;
+    protected TextInputEditText mPasswordView;
 
     @Bind(R.id.userAvatar)
     protected CircleImageView mHead;
 
     MaterialDialog mDialog;
-    private boolean canBack = false;
 
 
     @Override

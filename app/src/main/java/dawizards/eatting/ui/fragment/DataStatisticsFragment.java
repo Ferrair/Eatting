@@ -15,12 +15,14 @@ import cn.bmob.v3.listener.FindListener;
 import dawizards.eatting.R;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.manager.RxBus;
 import dawizards.eatting.mvp.presenter.FoodPresenter;
 import dawizards.eatting.ui.adapter.DataStatisticsAdapter;
 import dawizards.eatting.ui.adapter.event.LayoutState;
 import dawizards.eatting.ui.base.ScrollFragment;
 import dawizards.eatting.ui.customview.DividerItemDecoration;
 import dawizards.eatting.util.TimeUtil;
+import rx.Subscription;
 
 /**
  * Created by WQH on 2015/11/15 18:27.
@@ -33,6 +35,7 @@ public class DataStatisticsFragment extends ScrollFragment {
     FoodPresenter mFoodPresenter;
     BmobQuery<Food> mQuery;
     BmobDate mBmobDate;
+    Subscription mBus;
 
     @Override
     public int layoutId() {
@@ -44,11 +47,16 @@ public class DataStatisticsFragment extends ScrollFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mBus = RxBus.getDefault().toObservable(Food.class).subscribe(o -> {
+            Log.i(TAG, "RxBus(Food) 收到了一条消息");
+            mAdapter.addAtHead((Food) o);
+        });
+
         mAdapter = new DataStatisticsAdapter(mContext);
-        mAdapter.setLoadState(LayoutState.GONE);
+        mAdapter.setLoadState(LayoutState.FINISHED);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
-        mFoodPresenter = new FoodPresenter(mContext);
+        mFoodPresenter = new FoodPresenter();
         mBmobDate = new BmobDate(TimeUtil.getTodayStart());
         mQuery = new BmobQuery<>();
         mQuery.addWhereEqualTo("belongSchool", BmobUser.getCurrentUser(User.class).getBelongSchool());
@@ -56,6 +64,15 @@ public class DataStatisticsFragment extends ScrollFragment {
         mQuery.addWhereGreaterThan("updatedAt", mBmobDate);
         mFoodPresenter.queryBatch(mQuery, new FoodLoadListener());
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (!mBus.isUnsubscribed()) {
+            mBus.unsubscribe();
+        }
+    }
+
 
     @Override
     public void onRefreshDelayed() {

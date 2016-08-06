@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/background"
               android:orientation="vertical">
 
     <LinearLayout
@@ -52,6 +53,7 @@
         android:id="@+id/moment_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
         android:gravity="center_vertical"
         android:maxHeight="100dp"
         android:paddingBottom="10dp"
@@ -65,6 +67,7 @@
         android:id="@+id/momentImages"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
         android:horizontalSpacing="2dp"
         android:numColumns="3"
         android:paddingLeft="10dp"
@@ -75,6 +78,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="1dp"
         android:paddingLeft="13dp"
         android:paddingRight="13dp">
@@ -92,9 +96,10 @@
             android:id="@+id/moment_like"
             android:layout_width="40dp"
             android:layout_height="fill_parent"
+            android:background="@color/background"
+            android:src="@mipmap/like"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:background="@mipmap/like"/>
+            android:layout_marginRight="10dp"/>
 
     </RelativeLayout>
 

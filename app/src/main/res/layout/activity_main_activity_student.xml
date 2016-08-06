@@ -9,7 +9,6 @@ And the Fragments on TabLayout will be changed when the user scroll left or righ
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".ui.activity.MainActivityStudent">
 
     <android.support.design.widget.AppBarLayout
@@ -28,7 +27,8 @@ And the Fragments on TabLayout will be changed when the user scroll left or righ
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
@@ -39,8 +39,7 @@ And the Fragments on TabLayout will be changed when the user scroll left or righ
         <LinearLayout
             android:id="@+id/mMainBottom"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="50dp">
 
             <Button
                 android:id="@+id/mButtonCanteen"

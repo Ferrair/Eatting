@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="slidingtutorial-0.9.5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.cleveroad/slidingtutorial/0.9.5/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.cleveroad/slidingtutorial/0.9.5/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.cleveroad/slidingtutorial/0.9.5/678365aa763a2e0312a4f9be1aafc64e02582567/slidingtutorial-0.9.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

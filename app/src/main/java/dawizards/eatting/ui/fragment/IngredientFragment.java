@@ -2,7 +2,6 @@ package dawizards.eatting.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -14,7 +13,6 @@ import com.annimon.stream.Stream;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -26,13 +24,12 @@ import dawizards.eatting.app.Constants;
 import dawizards.eatting.bean.Ingredient;
 import dawizards.eatting.bean.Moment;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.manager.SharePreferenceManager;
 import dawizards.eatting.mvp.presenter.IngredientPresenter;
 import dawizards.eatting.mvp.presenter.MomentPresenter;
 import dawizards.eatting.ui.adapter.IngredientAdapter;
-import dawizards.eatting.ui.adapter.event.LayoutState;
 import dawizards.eatting.ui.base.ScrollFragment;
 import dawizards.eatting.util.CollectionUtil;
-import dawizards.eatting.util.SharePreferenceUtil;
 import dawizards.eatting.util.TimeUtil;
 import dawizards.eatting.util.ToastUtil;
 
@@ -42,8 +39,6 @@ import dawizards.eatting.util.ToastUtil;
 public class IngredientFragment extends ScrollFragment {
 
     private static final String TAG = "IngredientFragment";
-    @Bind(R.id.fab)
-    FloatingActionButton mActionButton;
 
     User currentUser;
     IngredientAdapter mAdapter;
@@ -64,7 +59,6 @@ public class IngredientFragment extends ScrollFragment {
     }
 
     private void initView() {
-        mAdapter.setLoadState(LayoutState.GONE);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mAdapter.setOnItemClickListener(R.id.item_layout, (view, data) -> {
             if (!mSelected.contains(data)) {
@@ -83,10 +77,9 @@ public class IngredientFragment extends ScrollFragment {
         }
 
         if (currentUser.getType() == User.UserType.STUDENT) {
-            mActionButton.setVisibility(View.GONE);
 
             mQuery = new BmobQuery<>();
-           // mQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
+            // mQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
             mQuery.addWhereEqualTo("belongSchool", BmobUser.getCurrentUser(User.class).getBelongSchool());
             mQuery.addWhereEqualTo("belongCanteen", BmobUser.getCurrentUser(User.class).getBelongCanteen() == null ? "紫荆食堂" : BmobUser.getCurrentUser(User.class).getBelongCanteen());
             mIngredientPresenter.queryBatch(mQuery, new IngredientFindListener());
@@ -101,7 +94,7 @@ public class IngredientFragment extends ScrollFragment {
     @Override
     public void onRefreshDelayed() {
         if (currentUser.getType() == User.UserType.STUDENT) {
-           // mQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
+            // mQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
             mIngredientPresenter.queryBatch(mQuery, new IngredientFindListener());
         }
     }
@@ -149,8 +142,15 @@ public class IngredientFragment extends ScrollFragment {
                 .positiveText("确定")
                 .negativeText("取消")
                 .onPositive((dialog, which) -> {
+                    Log.i(TAG, "Begin Save");
                     Stream.of(mSelected).forEach(item -> {
-                        item.save();
+                        item.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String s, BmobException e) {
+                                if (e != null)
+                                    Log.e(TAG, +e.getErrorCode() + e.getMessage());
+                            }
+                        });
                     });
                 })
                 .show();
@@ -161,7 +161,7 @@ public class IngredientFragment extends ScrollFragment {
             ToastUtil.showToast("您还没有选择啊");
             return;
         }
-        SharePreferenceUtil mUtil = SharePreferenceUtil.newInstance(getActivity(), Constants.FOOD_ATTEND_NUM);
+        SharePreferenceManager mUtil = SharePreferenceManager.newInstance(getActivity(), Constants.FOOD_ATTEND_NUM);
         String key = TimeUtil.today();
         if (mUtil.getIntData(key) < Constants.CAN_SELECT_INGREDIENT) {
             ToastUtil.showToast("预定次数大于 " + Constants.CAN_SELECT_INGREDIENT + "次,才行啊," + "当前次数 " + mUtil.getIntData(key));

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="设置您的选项">
+        <CheckBoxPreference
+            android:key="vibrate"
+            android:title="震动" />
+        <CheckBoxPreference
+            android:key="voice"
+            android:title="声音" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

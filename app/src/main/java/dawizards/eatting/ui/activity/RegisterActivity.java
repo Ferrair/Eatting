@@ -2,9 +2,9 @@ package dawizards.eatting.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.EditText;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -23,13 +23,13 @@ public class RegisterActivity extends ToolbarActivity {
     public static final String TAG = "RegisterActivity";
 
     @Bind(R.id.mEditTextUserRegisterName)
-    protected EditText mEditTextUserRegisterName; //Username
+    protected TextInputEditText mEditTextUserRegisterName; //Username
 
     @Bind(R.id.mEditTextRegisterPassword)
-    protected EditText mEditTextRegisterPassword; //Password
+    protected TextInputEditText mEditTextRegisterPassword; //Password
 
     @Bind(R.id.mEditTextRepeat)
-    protected EditText mEditTextRepeat;   //Password Check
+    protected TextInputEditText mEditTextRepeat;   //Password Check
     MaterialDialog mDialog;
 
     @Override

@@ -17,6 +17,7 @@ import dawizards.eatting.R;
 import dawizards.eatting.bean.Comment;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.manager.RxBus;
 import dawizards.eatting.mvp.presenter.CommentPresenter;
 import dawizards.eatting.ui.base.ToolbarActivity;
 import dawizards.eatting.util.IntentUtil;
@@ -46,7 +47,7 @@ public class PostCommentActivity extends ToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFoodItem = (Food) getIntent().getSerializableExtra("itemFood");
-        mCommentPresenter = new CommentPresenter(this);
+        mCommentPresenter = new CommentPresenter();
     }
 
 
@@ -64,7 +65,7 @@ public class PostCommentActivity extends ToolbarActivity {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
-                    IntentUtil.goToOtherActivity(PostCommentActivity.this, ItemFoodActivity.class, "itemFood", mFoodItem);
+                    RxBus.getDefault().post(mFoodItem);
                     finish();
                 } else {
                     Snackbar.make(mRootView, "由于某种原因，评论失败了", Snackbar.LENGTH_LONG).show();

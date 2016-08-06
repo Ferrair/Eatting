@@ -52,7 +52,7 @@ public abstract class BaseAdapter<Holder extends BaseAdapter.BaseHolder, DataTyp
     /**
      * The current state of FooterView.
      */
-    private int mState = LayoutState.LOAD;
+    private int mState = LayoutState.GONE;
 
     public static final int ITEM_TYPE_FOOTER = 0;
     public static final int ITEM_TYPE_NORMAL = 1;
@@ -174,7 +174,8 @@ public abstract class BaseAdapter<Holder extends BaseAdapter.BaseHolder, DataTyp
     public int getItemCount() {
         if (mListData == null)
             return 0;
-        return mListData.size() + 1;
+        return mListData.size();
+
     }
 
     @Override

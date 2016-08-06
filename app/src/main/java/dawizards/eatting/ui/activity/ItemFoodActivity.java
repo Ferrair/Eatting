@@ -26,12 +26,15 @@ import dawizards.eatting.R;
 import dawizards.eatting.bean.Comment;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.manager.RxBus;
 import dawizards.eatting.mvp.presenter.CommentPresenter;
 import dawizards.eatting.mvp.presenter.FoodPresenter;
 import dawizards.eatting.ui.adapter.CommentAdapter;
 import dawizards.eatting.ui.adapter.event.LayoutState;
 import dawizards.eatting.ui.base.ScrollActivity;
+import dawizards.eatting.ui.customview.DividerItemDecoration;
 import dawizards.eatting.util.IntentUtil;
+import rx.Subscription;
 
 /**
  * Created by WQH on 2016/8/3  19:12.
@@ -57,12 +60,18 @@ public class ItemFoodActivity extends ScrollActivity {
     FoodPresenter mFoodPresenter;
     BmobQuery<Comment> mBmobQuery;
     User currentUser;
-
+    Subscription mBus;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCommentPresenter = new CommentPresenter(this);
-        mFoodPresenter = new FoodPresenter(this);
+
+        mBus = RxBus.getDefault().toObservable(Comment.class).subscribe(o -> {
+            Log.i(TAG, "RxBus(Food) 收到了一条消息");
+            mAdapter.addAtHead((Comment) o);
+        });
+
+        mCommentPresenter = new CommentPresenter();
+        mFoodPresenter = new FoodPresenter();
         mFoodItem = (Food) getIntent().getSerializableExtra("itemFood");
         mAdapter = new CommentAdapter(this);
         currentUser = BmobUser.getCurrentUser(User.class);
@@ -78,7 +87,7 @@ public class ItemFoodActivity extends ScrollActivity {
         /*
          * Init RecyclerView and Adapter.
          */
-        mAdapter.setLoadState(LayoutState.GONE);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         /*
          * Init Action Menu.
          */
@@ -180,6 +189,15 @@ public class ItemFoodActivity extends ScrollActivity {
         mFoodItem.addLike(currentUser);
         mFoodPresenter.update(mFoodItem, new FoodUpdateListener());
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (!mBus.isUnsubscribed()) {
+            mBus.unsubscribe();
+        }
+    }
+
 
     private class CommentLoadListener extends FindListener<Comment> {
         @Override

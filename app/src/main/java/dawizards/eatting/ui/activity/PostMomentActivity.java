@@ -15,6 +15,7 @@ import cn.bmob.v3.listener.SaveListener;
 import dawizards.eatting.R;
 import dawizards.eatting.bean.Moment;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.manager.RxBus;
 import dawizards.eatting.mvp.presenter.MomentPresenter;
 import dawizards.eatting.ui.base.ToolbarActivity;
 import dawizards.eatting.util.ToastUtil;
@@ -59,6 +60,7 @@ public class PostMomentActivity extends ToolbarActivity {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
+                    RxBus.getDefault().post(mMoment);
                     finish();
                 } else {
                     Snackbar.make(mRootView, "由于某种原因，评论失败了", Snackbar.LENGTH_LONG).show();

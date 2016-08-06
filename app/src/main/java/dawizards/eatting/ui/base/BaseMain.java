@@ -3,11 +3,13 @@ package dawizards.eatting.ui.base;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
@@ -24,13 +26,16 @@ import butterknife.Bind;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import dawizards.eatting.R;
 import dawizards.eatting.app.Constants;
-import dawizards.eatting.app.PermissionManager;
+import dawizards.eatting.manager.PermissionManager;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.ui.activity.SearchActivity;
 import dawizards.eatting.ui.adapter.FragmentAdapter;
 import dawizards.eatting.ui.customview.DrawerDelegate;
+import dawizards.eatting.util.IntentUtil;
 import dawizards.eatting.util.ToastUtil;
 
 /**
@@ -50,12 +55,11 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
      */
     private DrawerDelegate mDrawerDelegate;
 
-    private List<Fragment> mContentList = new ArrayList<>();
+    private List<BaseFragment> mContentList = new ArrayList<>();
 
     private List<Button> mButtonList = new ArrayList<>();
 
     private List<String> mTitleList = new ArrayList<>();
-
 
     /*
      * User Avatar Local Path.
@@ -110,7 +114,7 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                //IntentUtil.goToOtherActivity(this, SearchActivity.class);
+                IntentUtil.goToOtherActivity(this, SearchActivity.class);
                 break;
         }
         return true;
@@ -124,13 +128,17 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
         new AlertDialog.Builder(this).setItems(new String[]{"从相册选择", "照相",}, (dialog, which) -> {
             switch (which) {
                 case 0:
-                    if (PermissionManager.grantPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    if (PermissionManager.hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         album();
+                    } else {
+                        PermissionManager.requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                     }
                     break;
                 case 1:
-                    if (PermissionManager.grantPermission(this, Manifest.permission.CAMERA)) {
+                    if (PermissionManager.hasPermission(this, Manifest.permission.CAMERA)) {
                         camera();
+                    } else {
+                        PermissionManager.requestPermission(this, Manifest.permission.CAMERA);
                     }
                     break;
             }
@@ -152,6 +160,38 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent, Constants.REQUEST_GALLEY);
+    }
+
+    /**
+     * Callback for the result from requesting permissions. This method is invoked for every call on requestPermissions(android.app.Activity, String[], int).
+     *
+     * Note: It is possible that the permissions request interaction with the user is interrupted.
+     * In this case you will receive empty permissions and results arrays which should be treated as a cancellation.
+     *
+     * @param requestCode  int: The request code passed in requestPermissions(android.app.Activity, String[], int)
+     * @param permissions  String: The requested permissions. Never null.
+     * @param grantResults int: The grant results for the corresponding permissions which is either PERMISSION_GRANTED or PERMISSION_DENIED. Never null.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            for (String permission : permissions) {
+                if (permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    for (int grantResult : grantResults) {
+                        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                            album();
+                        }
+                    }
+                }
+                if (permission.equals(Manifest.permission.CAMERA)) {
+                    for (int grantResult : grantResults) {
+                        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                            camera();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -190,10 +230,17 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    User currentUser = BmobUser.getCurrentUser(User.class);
-                    currentUser.setUserImage(bmobFile.getFileUrl());
-                    currentUser.save();
                     mDrawerDelegate.setAvatar(bmobFile.getFileUrl());
+
+                    User mUser = new User();
+                    mUser.setUserImage(bmobFile.getFileUrl());
+                    mUser.update(BmobUser.getCurrentUser().getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            ToastUtil.showToast("Update Sueeess");
+                        }
+                    });
+
                 } else {
                     Log.i(TAG, "上传文件失败：" + e.getMessage());
                 }
@@ -269,7 +316,6 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
             } else {
                 mDrawerDelegate.setAvatar(currentUser.getUserImage());
             }
-
         }
     }
 

@@ -18,7 +18,7 @@ public interface OnContentCreate {
      *
      * Those methods are set basic component in this activity by subclass callback.
      */
-      List<Fragment> onFragmentCreate();
+      List<BaseFragment> onFragmentCreate();
 
       List<Button> onButtonCreate();
 

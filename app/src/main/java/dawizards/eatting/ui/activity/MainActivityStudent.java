@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.Bind;
 import cn.bmob.v3.BmobUser;
 import dawizards.eatting.R;
+import dawizards.eatting.ui.base.BaseFragment;
 import dawizards.eatting.ui.base.BaseMain;
 import dawizards.eatting.ui.fragment.FoodFragment;
 import dawizards.eatting.ui.fragment.IngredientFragment;
@@ -41,8 +42,8 @@ public class MainActivityStudent extends BaseMain {
     }
 
     @Override
-    public List<Fragment> onFragmentCreate() {
-        List<Fragment> fragmentList = new ArrayList<>();
+    public List<BaseFragment> onFragmentCreate() {
+        List<BaseFragment> fragmentList = new ArrayList<>();
         fragmentList.add(new FoodFragment());
         fragmentList.add(new IngredientFragment());
         fragmentList.add(new MomentFragment());

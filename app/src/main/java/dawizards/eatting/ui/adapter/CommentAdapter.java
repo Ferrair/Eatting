@@ -37,14 +37,15 @@ public class CommentAdapter extends BaseAdapter<CommentAdapter.CommentsHolder, C
         super(mContext, mListData);
     }
 
+    // Todo : Query User Info.
     @Override
     protected void onBindItemDataToView(CommentsHolder holder, Comment itemData) {
 
         holder.createdAt.setText(itemData.getCreatedAt().substring(0, 11));
         holder.commentBy.setText(itemData.commentBy);
         holder.content.setText(itemData.content);
-        ImageLoader.getInstance().displayImage(itemData.userUrl, holder.avatar, ImageLoaderOptions.getOptions());
-
+        if (itemData.userUrl != null)
+            ImageLoader.getInstance().displayImage(itemData.userUrl, holder.avatar, ImageLoaderOptions.getOptions());
     }
 
     @Override

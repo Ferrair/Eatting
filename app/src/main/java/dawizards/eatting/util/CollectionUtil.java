@@ -78,7 +78,6 @@ public class CollectionUtil {
 
             if (splitString.length > 1) {
                 mIngredient.imageUrl = splitString[1];
-                Log.i(TAG, splitString[1]);
             } else
                 mIngredient.imageUrl = null;
 

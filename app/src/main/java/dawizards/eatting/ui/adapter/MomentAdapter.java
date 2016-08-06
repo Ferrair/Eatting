@@ -1,12 +1,16 @@
 package dawizards.eatting.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -40,7 +44,6 @@ public class MomentAdapter extends BaseAdapter<MomentAdapter.MomentHolder, Momen
         holder.mMomentsLikeNum.setText(itemData.getAttendPeopleNum() + " 人觉得很赞");
         if (itemData.userImageUrl != null)
             ImageLoader.getInstance().displayImage(itemData.userImageUrl, holder.mAuthorImage);
-        holder.mAuthorImage.setImageResource(R.mipmap.head);
     }
 
     @Override

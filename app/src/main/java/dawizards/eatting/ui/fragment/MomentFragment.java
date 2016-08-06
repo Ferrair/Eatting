@@ -11,13 +11,16 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import dawizards.eatting.R;
+import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.Moment;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.manager.RxBus;
 import dawizards.eatting.mvp.presenter.MomentPresenter;
 import dawizards.eatting.ui.adapter.MomentAdapter;
 import dawizards.eatting.ui.adapter.event.LayoutState;
 import dawizards.eatting.ui.base.ScrollFragment;
 import dawizards.eatting.util.ToastUtil;
+import rx.Subscription;
 
 /**
  * Created by WQH on 2016/8/5  20:47.
@@ -30,11 +33,17 @@ public class MomentFragment extends ScrollFragment {
     MomentAdapter mAdapter;
     MomentPresenter mMomentPresenter;
     BmobQuery<Moment> mQuery;
-
+    Subscription mBus;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        mBus = RxBus.getDefault().toObservable(Moment.class).subscribe(o -> {
+            Log.i(TAG, "RxBus(Food) 收到了一条消息");
+            mAdapter.addAtHead((Moment) o);
+        });
+
         mAdapter = new MomentAdapter(mContext);
         mAdapter.setLoadState(LayoutState.GONE);
         currentUser = BmobUser.getCurrentUser(User.class);
@@ -79,6 +88,13 @@ public class MomentFragment extends ScrollFragment {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (!mBus.isUnsubscribed()) {
+            mBus.unsubscribe();
+        }
+    }
 
     private class MomentFindListener extends FindListener<Moment> {
         @Override
