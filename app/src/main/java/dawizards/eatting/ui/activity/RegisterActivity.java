@@ -14,6 +14,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import dawizards.eatting.R;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.mvp.presenter.UserPresenter;
 import dawizards.eatting.ui.base.ToolbarActivity;
 import dawizards.eatting.util.IntentUtil;
 import dawizards.eatting.util.ToastUtil;
@@ -30,12 +31,16 @@ public class RegisterActivity extends ToolbarActivity {
 
     @Bind(R.id.mEditTextRepeat)
     protected TextInputEditText mEditTextRepeat;   //Password Check
+
+
     MaterialDialog mDialog;
+    UserPresenter mUserPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDialog = new MaterialDialog.Builder(this).content(R.string.register_now).progress(true, 0).build();
+        mUserPresenter = new UserPresenter();
     }
 
     @Override
@@ -61,23 +66,7 @@ public class RegisterActivity extends ToolbarActivity {
         mUser.setUsername(userName);
         mUser.setPassword(password);
         mUser.setType(User.UserType.STUDENT);
-        mUser.signUp(new SaveListener<User>() {
-            @Override
-            public void done(User user, BmobException e) {
-                if (e == null) {
-                    IntentUtil.goToOtherActivity(RegisterActivity.this, SelectActivity.class, "type", SelectActivity.SELECT_SCHOOL);
-                    mDialog.dismiss();
-                    ToastUtil.showToast(getString(R.string.register_success));
-                } else {
-                    Log.e(TAG, "注册失败 -> " + e.getErrorCode() + e.getMessage());
-                    mDialog.dismiss();
-                    if (e.getErrorCode() == 202) {
-                        ToastUtil.showToast("用户已存在");
-                    }
-
-                }
-            }
-        });
+        mUserPresenter.signUp(mUser, mDialog, new SignListener());
     }
 
     private boolean illegalInputInfo(String userName, String password, String passwordAgain) {
@@ -94,5 +83,19 @@ public class RegisterActivity extends ToolbarActivity {
             return true;
         }
         return false;
+    }
+
+    private class SignListener extends SaveListener<User> {
+        @Override
+        public void done(User user, BmobException e) {
+            if (e == null) {
+                IntentUtil.goToOtherActivity(RegisterActivity.this, SelectActivity.class, "type", SelectActivity.SELECT_SCHOOL);
+                mDialog.dismiss();
+                ToastUtil.showToast(getString(R.string.register_success));
+            } else {
+                mDialog.dismiss();
+                ToastUtil.showToast(getString(R.string.register_fail));
+            }
+        }
     }
 }

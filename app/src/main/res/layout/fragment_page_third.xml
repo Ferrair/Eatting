@@ -5,13 +5,15 @@
     android:id="@+id/rootThirdPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@android:color/holo_blue_dark"
+    android:fitsSystemWindows="true"
     tools:ignore="ContentDescription">
 
     <ImageView
         android:id="@+id/mImage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@mipmap/navigation_3"
+        android:fitsSystemWindows="true"/>
 
     <Button
         android:id="@+id/go"

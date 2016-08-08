@@ -9,12 +9,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -43,10 +43,10 @@ import dawizards.eatting.util.ToastUtil;
 public class PostFoodActivity extends ToolbarActivity {
     private static final String TAG = "PostFoodActivity";
     @Bind(R.id.food_name)
-    EditText mFoodName;
+    TextInputEditText mFoodName;
 
     @Bind(R.id.food_price)
-    EditText mFoodPrice;
+    TextInputEditText mFoodPrice;
 
     @Bind(R.id.food_image)
     ImageView mFoodImage;
@@ -237,29 +237,37 @@ public class PostFoodActivity extends ToolbarActivity {
         String foodName = mFoodName.getText().toString();
         String foodPrice = mFoodPrice.getText().toString();
 
+
         if (rightInput(foodName, foodPrice)) {
             mDialog.show();
-            BmobFile bmobFile = new BmobFile(new File(mFilePath));
-            bmobFile.uploadblock(new UploadFileListener() {
-                @Override
-                public void done(BmobException e) {
-                    if (e == null) {
-                        User currentUser = BmobUser.getCurrentUser(User.class);
-                        mFood.name = foodName;
-                        mFood.price = Float.valueOf(foodPrice);
-                        mFood.belongSchool = currentUser.getBelongSchool();
-                        mFood.belongCanteen = currentUser.getBelongCanteen();
-                        mFood.imageUrl = bmobFile.getFileUrl();
-                        mFoodPresenter.post(mFood, new FoodSaveListener(bmobFile.getFileUrl()));
-                    } else {
-                        Log.i(TAG, "上传文件失败：" + e.getMessage());
-                    }
-                }
-            });
+            compressImage(foodName, foodPrice);
         }
     }
 
-    class FoodSaveListener extends SaveListener<String> {
+    /**
+     * Compress the image file.
+     */
+    private void compressImage(final String foodName, final String foodPrice) {
+        BmobFile bmobFile = new BmobFile(new File(mFilePath));
+        bmobFile.uploadblock(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    User currentUser = BmobUser.getCurrentUser(User.class);
+                    mFood.name = foodName;
+                    mFood.price = Float.valueOf(foodPrice);
+                    mFood.belongSchool = currentUser.getBelongSchool();
+                    mFood.belongCanteen = currentUser.getBelongCanteen();
+                    mFood.imageUrl = bmobFile.getFileUrl();
+                    mFoodPresenter.post(mFood, new FoodSaveListener(bmobFile.getFileUrl()));
+                } else {
+                    Log.i(TAG, "上传文件失败：" + e.getMessage());
+                }
+            }
+        });
+    }
+
+    private class FoodSaveListener extends SaveListener<String> {
         String url;
 
         public FoodSaveListener(String url) {

@@ -1,12 +1,16 @@
 package dawizards.eatting.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -30,7 +34,6 @@ import dawizards.eatting.manager.RxBus;
 import dawizards.eatting.mvp.presenter.CommentPresenter;
 import dawizards.eatting.mvp.presenter.FoodPresenter;
 import dawizards.eatting.ui.adapter.CommentAdapter;
-import dawizards.eatting.ui.adapter.event.LayoutState;
 import dawizards.eatting.ui.base.ScrollActivity;
 import dawizards.eatting.ui.customview.DividerItemDecoration;
 import dawizards.eatting.util.IntentUtil;
@@ -61,10 +64,10 @@ public class ItemFoodActivity extends ScrollActivity {
     BmobQuery<Comment> mBmobQuery;
     User currentUser;
     Subscription mBus;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mBus = RxBus.getDefault().toObservable(Comment.class).subscribe(o -> {
             Log.i(TAG, "RxBus(Food) 收到了一条消息");
             mAdapter.addAtHead((Comment) o);
@@ -80,6 +83,7 @@ public class ItemFoodActivity extends ScrollActivity {
     }
 
     private void initView() {
+
         /*
          * Init title in Toolbar
          */

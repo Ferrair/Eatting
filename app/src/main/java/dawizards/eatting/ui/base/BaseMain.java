@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
@@ -26,12 +25,12 @@ import butterknife.Bind;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import dawizards.eatting.R;
 import dawizards.eatting.app.Constants;
 import dawizards.eatting.manager.PermissionManager;
 import dawizards.eatting.bean.User;
+import dawizards.eatting.mvp.presenter.UserPresenter;
 import dawizards.eatting.ui.activity.SearchActivity;
 import dawizards.eatting.ui.adapter.FragmentAdapter;
 import dawizards.eatting.ui.customview.DrawerDelegate;
@@ -224,7 +223,11 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
             return;
         }
         mFilePath = localPath;
+        compress();
 
+    }
+
+    private void compress() {
         BmobFile bmobFile = new BmobFile(new File(mFilePath));
         bmobFile.uploadblock(new UploadFileListener() {
             @Override
@@ -234,12 +237,8 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
 
                     User mUser = new User();
                     mUser.setUserImage(bmobFile.getFileUrl());
-                    mUser.update(BmobUser.getCurrentUser().getObjectId(), new UpdateListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            ToastUtil.showToast("Update Sueeess");
-                        }
-                    });
+                    UserPresenter userPresenter = new UserPresenter();
+                    userPresenter.update(mUser);
 
                 } else {
                     Log.i(TAG, "上传文件失败：" + e.getMessage());

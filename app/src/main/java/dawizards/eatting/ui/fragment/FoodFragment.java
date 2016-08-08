@@ -41,7 +41,6 @@ import rx.Subscription;
  * Created by WQH on 2015/11/19 11:21.
  *
  * Show Food.Student can select which food they like.
- *
  */
 public class FoodFragment extends ScrollFragment {
     private static final String TAG = "FoodFragment";
@@ -70,6 +69,7 @@ public class FoodFragment extends ScrollFragment {
         mBus = RxBus.getDefault().toObservable(Food.class).subscribe(o -> {
             Log.i(TAG, "RxBus(Food) 收到了一条消息");
             mAdapter.addAtHead((Food) o);
+            mRecyclerView.smoothScrollToPosition(0);
         });
 
         mType = BmobUser.getCurrentUser(User.class).getType();

@@ -22,6 +22,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 tasks.withType(JavaCompile) {
@@ -48,24 +49,27 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     // com.android.support
-    // third util
-    //Java8语法
-    // third component
-    compile('com.mikepenz:materialdrawer:5.1.1@aar') {
-        transitive = true
-    }
-    compile files('libs/lite-orm-1.9.1.jar')
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:recyclerview-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
     compile 'com.android.support:support-v4:24.1.1'
     compile 'com.android.support:cardview-v7:24.1.1'
+
+    // Java8
     compile 'com.annimon:stream:1.0.4'
+
+    // third util
+    compile files('libs/lite-orm-1.9.1.jar')
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
+
+    // third component
     compile 'com.github.clans:fab:1.6.4'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.afollestad.material-dialogs:core:0.8.6.2'
     compile 'com.mikepenz:fontawesome-typeface:4.5.0.1@aar'
     compile 'com.cleveroad:slidingtutorial:0.9.5'
+    compile('com.mikepenz:materialdrawer:5.1.1@aar') {
+        transitive = true
+    }
 }

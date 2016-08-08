@@ -1,20 +1,22 @@
 package dawizards.eatting.ui.activity;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
 
 import cn.bmob.v3.BmobUser;
 import dawizards.eatting.R;
 import dawizards.eatting.bean.User;
-import dawizards.eatting.ui.base.BaseActivity;
 import dawizards.eatting.util.IntentUtil;
 
-
-public class SplashActivity extends BaseActivity {
+/**
+ * Full Screen Mode.(Immersive Mode,hide status bar nad navigation bar)
+ * See Manifest.xml.
+ */
+public class SplashActivity extends Activity {
 
     final Handler handler = new Handler() {
         @Override
@@ -29,24 +31,11 @@ public class SplashActivity extends BaseActivity {
         }
     };
 
-    @Override
-    protected int layoutId() {
-        return R.layout.activity_splash;
-    }
-
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-         * Into Immersive mode.
-         */
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        setContentView(R.layout.activity_splash);
         task();
         new Thread(() -> {
             handler.sendMessageDelayed(Message.obtain(), 2000);

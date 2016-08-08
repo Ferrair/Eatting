@@ -1,8 +1,6 @@
 package dawizards.eatting.ui.activity;
 
-import android.annotation.TargetApi;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
@@ -23,16 +21,14 @@ import dawizards.eatting.ui.base.BaseActivity;
 import dawizards.eatting.util.IntentUtil;
 
 public class NavigationActivity extends BaseActivity {
-
-
     private static SharePreferenceManager mUtil;
+
 
     @Override
     protected int layoutId() {
         return R.layout.activity_navigation;
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +38,6 @@ public class NavigationActivity extends BaseActivity {
             IntentUtil.goToOtherActivity(this, SplashActivity.class);
             finish();
         }
-
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                | View.SYSTEM_UI_FLAG_IMMERSIVE);
-
         getSupportFragmentManager().beginTransaction().add(R.id.container, new CustomPresentationPagerFragment()).commit();
     }
 
