@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
 import com.github.clans.fab.FloatingActionButton;
 import com.litesuits.orm.LiteOrm;
 
@@ -20,7 +18,6 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
 import dawizards.eatting.R;
-import dawizards.eatting.app.Constants;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.User;
 import dawizards.eatting.manager.RxBus;
@@ -36,6 +33,8 @@ import dawizards.eatting.manager.SharePreferenceManager;
 import dawizards.eatting.util.TimeUtil;
 import dawizards.eatting.util.ToastUtil;
 import rx.Subscription;
+
+import static dawizards.eatting.app.Constants.FOOD_ATTEND_NUM;
 
 /**
  * Created by WQH on 2015/11/19 11:21.
@@ -77,7 +76,6 @@ public class FoodFragment extends ScrollFragment {
         mFoodPresenter = new FoodPresenter();
         mBmobDate = new BmobDate(TimeUtil.getTodayStart());
         mQuery = new BmobQuery<>();
-
 
         initData();
 
@@ -161,7 +159,7 @@ public class FoodFragment extends ScrollFragment {
      */
     private void scheduleFood(Food data) {
         User currentUser = BmobUser.getCurrentUser(User.class);
-        SharePreferenceManager mShareNum = SharePreferenceManager.newInstance(mContext, Constants.FOOD_ATTEND_NUM);
+        SharePreferenceManager mShareNum = SharePreferenceManager.newInstance(mContext, FOOD_ATTEND_NUM);
         String key = TimeUtil.today();
 
         if (data.isAttend(currentUser)) {

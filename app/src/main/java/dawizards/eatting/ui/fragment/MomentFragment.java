@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -16,15 +17,16 @@ import dawizards.eatting.bean.Moment;
 import dawizards.eatting.bean.User;
 import dawizards.eatting.manager.RxBus;
 import dawizards.eatting.mvp.presenter.MomentPresenter;
+import dawizards.eatting.ui.activity.PostMomentActivity;
 import dawizards.eatting.ui.adapter.MomentAdapter;
 import dawizards.eatting.ui.adapter.event.LayoutState;
 import dawizards.eatting.ui.base.ScrollFragment;
+import dawizards.eatting.util.IntentUtil;
 import dawizards.eatting.util.ToastUtil;
 import rx.Subscription;
 
 /**
  * Created by WQH on 2016/8/5  20:47.
- * Todo : UI
  */
 public class MomentFragment extends ScrollFragment {
 
@@ -94,6 +96,11 @@ public class MomentFragment extends ScrollFragment {
         if (!mBus.isUnsubscribed()) {
             mBus.unsubscribe();
         }
+    }
+
+    @OnClick(R.id.post_moment)
+    public void postMoment() {
+        IntentUtil.goToOtherActivity(getActivity(), PostMomentActivity.class);
     }
 
     private class MomentFindListener extends FindListener<Moment> {

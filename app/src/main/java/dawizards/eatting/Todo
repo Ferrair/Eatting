@@ -1,4 +1,4 @@
 我的预定，我的动态
 图片压缩
-
-StatusBar 隐藏(NavigationActivity,ItemActivity)
+利用https://github.com/DroidNinja/Android-FilePicker实现发送动态的功能
+Update RxBus https://theseyears.gitbooks.io/android-architecture-journey/content/rxbus.html

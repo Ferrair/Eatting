@@ -64,7 +64,7 @@ public class NavigationActivity extends BaseActivity {
         @Override
         protected int getPageColor(int position) {
             if (position == 0)
-                return ContextCompat.getColor(getActivity(), android.R.color.holo_orange_dark);
+                return ContextCompat.getColor(getActivity(), android.R.color.holo_red_light);
             if (position == 1)
                 return ContextCompat.getColor(getActivity(), android.R.color.holo_green_dark);
             if (position == 2)

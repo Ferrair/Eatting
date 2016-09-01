@@ -30,7 +30,6 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import dawizards.eatting.R;
-import dawizards.eatting.app.Constants;
 import dawizards.eatting.manager.PermissionManager;
 import dawizards.eatting.bean.Food;
 import dawizards.eatting.bean.User;
@@ -39,6 +38,8 @@ import dawizards.eatting.mvp.presenter.FoodPresenter;
 import dawizards.eatting.ui.base.ToolbarActivity;
 import dawizards.eatting.util.ImageLoaderOptions;
 import dawizards.eatting.util.ToastUtil;
+
+import static dawizards.eatting.app.Constants.*;
 
 public class PostFoodActivity extends ToolbarActivity {
     private static final String TAG = "PostFoodActivity";
@@ -159,19 +160,19 @@ public class PostFoodActivity extends ToolbarActivity {
 
     public void camera() {
         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File dir = new File(Constants.PICTURE_PATH);
+        File dir = new File(PICTURE_PATH);
         if (!dir.exists())
             dir.mkdir();
         File file = new File(dir, System.currentTimeMillis() + ".jpg");
         mFilePath = file.getAbsolutePath();
         openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        startActivityForResult(openCameraIntent, Constants.REQUEST_CAMERA);
+        startActivityForResult(openCameraIntent, REQUEST_CAMERA);
     }
 
     public void album() {
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(intent, Constants.REQUEST_GALLEY);
+        startActivityForResult(intent, REQUEST_GALLEY);
     }
 
     @Override
@@ -179,10 +180,10 @@ public class PostFoodActivity extends ToolbarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case Constants.REQUEST_CAMERA:
+                case REQUEST_CAMERA:
                     showImage(mFilePath);
                     break;
-                case Constants.REQUEST_GALLEY:
+                case REQUEST_GALLEY:
                     if (data == null) return;
                     if (data.getData() == null) return;
                     Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
@@ -221,6 +222,7 @@ public class PostFoodActivity extends ToolbarActivity {
         switch (item.getItemId()) {
             case R.id.post_food:
                 postFood();
+                item.setEnabled(false);
                 break;
             case android.R.id.home:
                 onBackPressed();

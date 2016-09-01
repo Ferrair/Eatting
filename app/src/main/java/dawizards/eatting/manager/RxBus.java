@@ -1,5 +1,8 @@
 package dawizards.eatting.manager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rx.Observable;
 import rx.subjects.PublishSubject;
 import rx.subjects.SerializedSubject;
@@ -14,6 +17,7 @@ import rx.subjects.Subject;
 public class RxBus {
     private static RxBus INSTANCE;
     private final Subject<Object, Object> mBus;
+    private List<String> mNameList = new ArrayList<>();
 
     public RxBus() {
         mBus = new SerializedSubject<>(PublishSubject.create());

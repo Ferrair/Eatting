@@ -18,6 +18,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layoutId());
         ButterKnife.bind(this);
+        ButterKnife.setDebug(true);
     }
 
     @Override

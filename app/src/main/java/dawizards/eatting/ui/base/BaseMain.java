@@ -27,7 +27,6 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UploadFileListener;
 import dawizards.eatting.R;
-import dawizards.eatting.app.Constants;
 import dawizards.eatting.manager.PermissionManager;
 import dawizards.eatting.bean.User;
 import dawizards.eatting.mvp.presenter.UserPresenter;
@@ -36,6 +35,8 @@ import dawizards.eatting.ui.adapter.FragmentAdapter;
 import dawizards.eatting.ui.customview.DrawerDelegate;
 import dawizards.eatting.util.IntentUtil;
 import dawizards.eatting.util.ToastUtil;
+
+import static dawizards.eatting.app.Constants.*;
 
 /**
  * Created by WQH on 2015/11/27 19:53.
@@ -146,19 +147,19 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
 
     public void camera() {
         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File dir = new File(Constants.PICTURE_PATH);
+        File dir = new File(PICTURE_PATH);
         if (!dir.exists())
             dir.mkdir();
         File file = new File(dir, System.currentTimeMillis() + ".jpg");
         mFilePath = file.getAbsolutePath();
         openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        startActivityForResult(openCameraIntent, Constants.REQUEST_CAMERA);
+        startActivityForResult(openCameraIntent, REQUEST_CAMERA);
     }
 
     public void album() {
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(intent, Constants.REQUEST_GALLEY);
+        startActivityForResult(intent, REQUEST_GALLEY);
     }
 
     /**
@@ -198,10 +199,10 @@ public abstract class BaseMain extends ToolbarActivity implements DrawerDelegate
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case Constants.REQUEST_CAMERA:
+                case REQUEST_CAMERA:
                     showImage(mFilePath);
                     break;
-                case Constants.REQUEST_GALLEY:
+                case REQUEST_GALLEY:
                     if (data == null) return;
                     if (data.getData() == null) return;
                     Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);

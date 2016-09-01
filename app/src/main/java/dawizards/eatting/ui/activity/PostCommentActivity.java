@@ -65,7 +65,7 @@ public class PostCommentActivity extends ToolbarActivity {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
-                    RxBus.getDefault().post(mFoodItem);
+                    RxBus.getDefault().post(aComment);
                     finish();
                 } else {
                     Snackbar.make(mRootView, "由于某种原因，评论失败了", Snackbar.LENGTH_LONG).show();
@@ -97,6 +97,7 @@ public class PostCommentActivity extends ToolbarActivity {
         switch (item.getItemId()) {
             case R.id.post:
                 postComment();
+                item.setEnabled(false);
                 break;
             case android.R.id.home:
                 onBackPressed();

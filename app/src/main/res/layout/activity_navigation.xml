@@ -4,7 +4,7 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:fitsSystemWindows="true"
-                tools:context=".ui.activity.NavigationActivity">
+                tools:context=".ui.activity.Navigation$$Activity">
 
     <FrameLayout
         android:id="@+id/container"

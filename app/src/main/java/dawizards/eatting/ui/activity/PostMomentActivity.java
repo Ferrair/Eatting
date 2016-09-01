@@ -91,6 +91,7 @@ public class PostMomentActivity extends ToolbarActivity {
         switch (item.getItemId()) {
             case R.id.post:
                 postMoment();
+                item.setEnabled(false);
                 break;
             case android.R.id.home:
                 onBackPressed();

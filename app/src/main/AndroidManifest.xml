@@ -30,7 +30,7 @@
         android:name=".app.EatingApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
-        android:label="饭友"
+        android:label="饭点"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
