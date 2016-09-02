@@ -150,7 +150,7 @@ public class OldFoodActivity extends ScrollActivity {
                             if (e != null) {
                                 Log.e(TAG, e.getMessage());
                             } else {
-                                RxBus.getDefault().post(item);
+                                RxBus.getDefault().post(item, RxBus.EVENT_ADD);
                                 Log.i(TAG, "Success Upload");
                             }
                         }

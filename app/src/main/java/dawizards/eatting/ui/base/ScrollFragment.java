@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import butterknife.Bind;
 import dawizards.eatting.R;
@@ -18,6 +19,8 @@ import dawizards.eatting.R;
  * NOTE: in subclass's XML file,those layout's is MUST be the same as above.
  */
 public abstract class ScrollFragment extends BaseFragment implements CanScroll {
+    private static final String TAG = "ScrollFragment";
+
     @Bind(R.id.swipeRefreshLayout)
     protected SwipeRefreshLayout mRefreshLayout;
 
@@ -32,6 +35,11 @@ public abstract class ScrollFragment extends BaseFragment implements CanScroll {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if (mRefreshLayout == null)
+            throw new NullPointerException("This Fragment must have a SwipeRefreshLayout with id:swipeRefreshLayout");
+        if (mRecyclerView == null)
+            throw new NullPointerException("This Fragment must have a RecyclerView with id:recyclerView");
+
         mRefreshLayout.setEnabled(canRefresh());
         mRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -42,12 +50,20 @@ public abstract class ScrollFragment extends BaseFragment implements CanScroll {
     public void onRefresh() {
         new Handler().postDelayed(() -> {
             onRefreshDelayed();
-            mRefreshLayout.setRefreshing(false);
+            if (mRefreshLayout != null) {
+                mRefreshLayout.setRefreshing(false);
+            } else {
+                Log.e(TAG, "onRefresh: mRefreshLayout is null");
+            }
         }, 2000);
     }
 
     //Call in Activity
     public void onToolbarClick() {
-        mRecyclerView.smoothScrollToPosition(0);
+        if (mRecyclerView != null) {
+            mRecyclerView.smoothScrollToPosition(0);
+        } else {
+            Log.e(TAG, "onRefresh: mRefreshLayout is null");
+        }
     }
 }

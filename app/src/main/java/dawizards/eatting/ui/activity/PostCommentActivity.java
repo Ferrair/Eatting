@@ -65,7 +65,7 @@ public class PostCommentActivity extends ToolbarActivity {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
-                    RxBus.getDefault().post(aComment);
+                    RxBus.getDefault().post(aComment,RxBus.EVENT_UPDATE);
                     finish();
                 } else {
                     Snackbar.make(mRootView, "由于某种原因，评论失败了", Snackbar.LENGTH_LONG).show();

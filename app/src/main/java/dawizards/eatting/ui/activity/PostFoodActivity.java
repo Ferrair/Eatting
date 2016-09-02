@@ -279,7 +279,7 @@ public class PostFoodActivity extends ToolbarActivity {
         @Override
         public void done(String var, BmobException e) {
             if (e == null) {
-                RxBus.getDefault().post(mFood);
+                RxBus.getDefault().post(mFood, RxBus.EVENT_ADD);
                 mDialog.dismiss();
                 Log.i(TAG, "上传文件成功:" + url);
                 finish();

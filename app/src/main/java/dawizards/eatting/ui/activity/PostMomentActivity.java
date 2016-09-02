@@ -60,7 +60,7 @@ public class PostMomentActivity extends ToolbarActivity {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
-                    RxBus.getDefault().post(mMoment);
+                    RxBus.getDefault().post(mMoment, RxBus.EVENT_ADD);
                     finish();
                 } else {
                     Snackbar.make(mRootView, "由于某种原因，评论失败了", Snackbar.LENGTH_LONG).show();

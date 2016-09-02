@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import butterknife.Bind;
 import dawizards.eatting.R;
@@ -17,6 +18,7 @@ import dawizards.eatting.R;
  * NOTE: in subclass's XML file,those layout's is MUST be the same as above.
  */
 public abstract class ScrollActivity extends ToolbarActivity implements CanScroll {
+    private static final String TAG = "ScrollActivity";
     @Bind(R.id.swipeRefreshLayout)
     protected SwipeRefreshLayout mRefreshLayout;
 
@@ -31,6 +33,11 @@ public abstract class ScrollActivity extends ToolbarActivity implements CanScrol
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (mRefreshLayout == null)
+            throw new NullPointerException("This Activity must have a SwipeRefreshLayout with id:swipeRefreshLayout");
+        if (mRecyclerView == null)
+            throw new NullPointerException("This Activity must have a RecyclerView with id:recyclerView");
+
         mRefreshLayout.setEnabled(canRefresh());
         mRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -38,12 +45,14 @@ public abstract class ScrollActivity extends ToolbarActivity implements CanScrol
 
     @Override
     public void onRefresh() {
-        if (canRefresh()) {
-            new Handler().postDelayed(() -> {
-                onRefreshDelayed();
+        new Handler().postDelayed(() -> {
+            onRefreshDelayed();
+            if (mRefreshLayout != null) {
                 mRefreshLayout.setRefreshing(false);
-            }, 2000);
-        }
+            } else {
+                Log.e(TAG, "onRefresh: mRefreshLayout is null");
+            }
+        }, 2000);
     }
 
     /**
@@ -51,6 +60,10 @@ public abstract class ScrollActivity extends ToolbarActivity implements CanScrol
      */
     @Override
     protected void onToolbarClick() {
-        mRecyclerView.smoothScrollToPosition(0);
+        if (mRecyclerView != null) {
+            mRecyclerView.smoothScrollToPosition(0);
+        } else {
+            Log.e(TAG, "onRefresh: mRefreshLayout is null");
+        }
     }
 }

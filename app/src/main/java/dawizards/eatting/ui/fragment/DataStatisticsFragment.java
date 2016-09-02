@@ -47,8 +47,8 @@ public class DataStatisticsFragment extends ScrollFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mBus = RxBus.getDefault().toObservable(Food.class).subscribe(o -> {
-            Log.i(TAG, "RxBus(Food) 收到了一条消息");
+        mBus = RxBus.getDefault().toObservable(Food.class, RxBus.EVENT_ADD).subscribe(o -> {
+            Log.i(TAG, "RxBus(Food,RxBus.EVENT_ADD) 收到了一条消息");
             mAdapter.addAtHead((Food) o);
         });
 

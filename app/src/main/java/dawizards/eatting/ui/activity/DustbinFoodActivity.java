@@ -136,7 +136,7 @@ public class DustbinFoodActivity extends ScrollActivity {
                                 Log.e(TAG, e.getMessage());
                             } else {
                                 Log.i(TAG, "Success Upload");
-                                RxBus.getDefault().post(item);
+                                RxBus.getDefault().post(item, RxBus.EVENT_ADD);
                             }
                         }
                     });

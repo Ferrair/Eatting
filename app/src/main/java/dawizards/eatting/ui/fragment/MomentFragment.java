@@ -41,8 +41,8 @@ public class MomentFragment extends ScrollFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mBus = RxBus.getDefault().toObservable(Moment.class).subscribe(o -> {
-            Log.i(TAG, "RxBus(Food) 收到了一条消息");
+        mBus = RxBus.getDefault().toObservable(Moment.class, RxBus.EVENT_ADD).subscribe(o -> {
+            Log.i(TAG, "RxBus(Food,RxBus.EVENT_ADD) 收到了一条消息");
             mAdapter.addAtHead((Moment) o);
         });
 

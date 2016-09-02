@@ -68,8 +68,8 @@ public class ItemFoodActivity extends ScrollActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBus = RxBus.getDefault().toObservable(Comment.class).subscribe(o -> {
-            Log.i(TAG, "RxBus(Food) 收到了一条消息");
+        mBus = RxBus.getDefault().toObservable(Comment.class, RxBus.EVENT_UPDATE).subscribe(o -> {
+            Log.i(TAG, "RxBus(Food,RxBus.EVENT_UPDATE) 收到了一条消息");
             mAdapter.addAtHead((Comment) o);
         });
 
