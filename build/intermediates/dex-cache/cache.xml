@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.github.clans\fab\1.6.4\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="1c3b9743fe8bb166a90a7e98b9b9f1f8021d80cd">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.clans-fab-1.6.4_4aff89232e32522ce68d9ea29b4a8f1970fdcfcd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-24.2.1_550b79bc633f149324935b6c22c435c0e51be5b8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_a92ee40096a94f7d57ea25d19875eb0a12c34c45\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-24.2.1_6e352f825efdd800cfc8c20e73947b8daa4f3099\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.mikepenz\fontawesome-typeface\4.5.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="9ec06b192478fcc1acd79f399926c48444c02f86">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.mikepenz-fontawesome-typeface-4.5.0.1_f9182a900d553f93169ff3bae42063d404bcc9c5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\rxjava-1.1.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="ac615240b277e7fd3950d7b35f73b733f310cede">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\rxjava-1.1.6_e98ed843084046bc9d7fe76f015bea612da7853a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-24.2.1_d04eec1c4761bfd9e6074047f31a6cc56a4bc44f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-24.2.1_36fa8f8e15ef150223e88f426d0b6c0fd40c15bc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\okio-1.7.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="bbeca71da43c8f4bc9ceedec002060f53437ad26">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.7.0_d4ef8de1aad0be9aad5974b707f5757cae3a3ae0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.mikepenz\materialize\0.8.5\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="2ffa3c442b4c6727a6c797daee4cbf49212afbbf">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.mikepenz-materialize-0.8.5_3f16d74861d101fbad0ce18153ad26d564a7481f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.annimon\stream\1.0.4\8f8e25db3c0af6598a661197e2eec5bff3c23f5a\stream-1.0.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="8f8e25db3c0af6598a661197e2eec5bff3c23f5a">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\stream-1.0.4_4e1dc2439f718f280ba2a3d1293de394e1f84cc6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\libs\universal-image-loader-1.9.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="dd9eeb557650c4ad7394df23f0f5cf27a7cfc697">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\2\universal-image-loader-1.9.4_c2f3396f800446bae185f75f471dc723df440177\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.afollestad.material-dialogs\core\0.8.6.2\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="cbdf1602ce622f3445dc7513237f30930c6e4a5a">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.afollestad.material-dialogs-core-0.8.6.2_844ef63fb97311fedd4dfe17095f483af352aa2b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\gson-2.6.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="dd625f5e7bba8235782b5dc4244c3fd26953190f">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.6.2_78f77d16399e9e35f6b65c1674092b5c64454387\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_7ce32acce1bfee368f0769a832baa34f885b62ba\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.mikepenz\fastadapter\1.2.3\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="8703bae08a0003af2c0a5b6a278c8a4bd1662fb3">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.mikepenz-fastadapter-1.2.3_0ffe3af7a1028ac99a00b95cfa376fce8d7dd280\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\libs\lite-orm-1.9.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="d573356bd40e02c1b60a8b8580e227346f714722">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\2\lite-orm-1.9.1_12bd6213790b4f50f879341f5c4778a863468c75\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.1_ebea01f846a754d23a13b82d170f32949f9720f1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="c5e6490573cd2cc8018417f60ddd251138b6ed61">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-24.2.1_bcbcbf375e7c7c763605cd36af652fe0aab028dd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_9b1cf0113aa4395f73abe81da1639e678729a3a9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife\7.0.1\d5d13ea991eab0252e3710e5df3d6a9d4b21d461\butterknife-7.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\butterknife-7.0.1_fc861cbde294a7e4a9efd57936d766cb077b60e2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-24.2.1_ca12ab6befbf4ba94c303300a8f6a7047dd60092\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="0dd61981cdebaeadd21683a99bce10051dc69193">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_0b4e847a998f53166f4f79724da96ebbb83e8f00\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\me.zhanghai.android.materialprogressbar\library\1.1.7\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="1478a113f04bf0b679037b4f6bd88bd1837b96a3">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\me.zhanghai.android.materialprogressbar-library-1.1.7_5a04975426b8ba0e51acd7dbfa7b724722ddd859\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.2.1_a813f93fb87dae1389243e5c6c9020f458580339\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.2.1_5779dfea688146b7a965a93cf88d63671beb9a3f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.mikepenz\materialdrawer\5.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="72e4d7089b459f8b5db9675aa5ef56a2a2dc9993">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.mikepenz-materialdrawer-5.1.1_6bcf0a2de1e80abff129b16172d92be1be72e0c7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidSDK\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.2.1_eeb17d55bc3c4231f2959f92658af670464c9ca0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.2.1_01ca906a199cfd43303045a8955cda35a51c0aca\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.cleveroad\slidingtutorial\0.9.5\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="395b2f993bc5a99976b27572f9a22bad9ec8a2bd">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.cleveroad-slidingtutorial-0.9.5_6ac19b2aa7cd102a5eb5b271a23ee0f52803d4b6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.2.1_86f625715ba416efa6f58c4858ac8b58a58ab815\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-24.2.1_d800a4410b5b3e503ccdc00512550892722f3a4c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_eb397a194d6a8297d565591ea9eecb770dbc3d2c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\BmobSDK_3.5.0_20160630.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="8eb5c605a02f792e326c5ac8e4feb2c18dd171ad">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\BmobSDK_3.5.0_20160630_470b136a55a9bbd74ee01ec722699395cac0feac\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\2.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="031e8b3ab2df4ab43b1017f84417d7e10dfbb8d2">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\de.hdodenhof-circleimageview-2.0.0_014c253a9d8a89c32f6a3ddb8daf6ed75a050d2c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.mikepenz\iconics-core\2.5.8\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="93e12ffa27e468e78d703173853ae71688028628">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.mikepenz-iconics-core-2.5.8_1e547b648938004cef1d6f9446cecbf13fd4525a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="7befa74e4aba4d90d5e4881106204478bfa3f7eb">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_c201a27b1979609be5c6005e6ceb91a3df05fdb2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="e47f10299673ab68f24c595f96b18086cc9a8384">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\cn.bmob.android-bmob-sdk-3.5.0_8ec59498a0d189689343796bc056d1159dd12c6b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\rxandroid-1.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="19beef6debb6a22febc28777464c71bfccbafe3d">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\rxandroid-1.2.0_ce667c356f2691c18ad50c7fe22cc5febd94cdc8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_755b50eaa55644cb364360966032a3584e8dd31b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\AndroidProject\Eatting-master\app\build\intermediates\exploded-aar\cn.bmob.android\bmob-sdk\3.5.0\jars\libs\okhttp-3.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="e7cb33d9f82d3b8521c6594b180f4dd9fc6d49f2">
+        <dex dex="E:\AndroidProject\Eatting-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.3.1_305792c2b773b24a25bc3e994782e756c16a0bc1\classes.dex" />
+    </item>
+
+</items>
